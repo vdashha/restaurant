@@ -6,6 +6,8 @@ use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegistrationRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\User;
+use App\Services\User\AuthService;
+use App\Services\User\ProfileService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -26,34 +28,27 @@ class UserController extends BaseController
         return view('login.signup');
     }
 
-    public function store(RegistrationRequest $request)
+    public function store(RegistrationRequest $request, AuthService $authService)
     {
-        User::create($request->all());
-        return redirect()->intended('home');
+        return $authService->registration($request);
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request, AuthService $authService)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('home');
-        }
+        $authService->handle($request);
+        return redirect()->route('home');
 
-        return redirect()->route('user.login')->withErrors([
-            'password' => 'Неправильный пароль.',
-        ])->withInput();
     }
 
     public function showProfile()
     {
         $user = Auth::user();
-
         return view('profile', compact('user'));
     }
 
-    public function updateProfile(UpdateRequest $request)
+    public function updateProfile(UpdateRequest $request, ProfileService $profileService)
     {
-        $user = Auth::user();
-        $user->update($request->all());
+        $user = $profileService->update($request);
         return view('profile', compact('user'));
     }
 

@@ -32,6 +32,7 @@ class LoginRequest extends FormRequest
         return [
             'email.required' => 'Поле обязательно для заполнения',
             'password.required' => 'Поле обязательно для заполнения',
+            'email.exists' => 'Пользователя с таким email не существует.',
         ];
     }
 }
