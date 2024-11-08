@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');})->name('home');
+    return view('main');})->name('home');
 
 
 Route::get('/user/login', [UserController::class, 'showLoginForm'])->name('user.login');
@@ -32,4 +32,5 @@ Route::post('/user/logout', function () {
     return redirect()->route('home'); // Перенаправление на главную страницу после выхода
 })->name('user.logout');
 
-
+Route::get('/menu', function () {
+    return view('welcome');})->name('menu');
