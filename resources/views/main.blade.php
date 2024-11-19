@@ -9,7 +9,7 @@
             min-height: 250px;">
         <h1>Добро пожаловать в наш ресторан!</h1>
         <p class="lead">Наслаждайтесь лучшими блюдами и атмосферой</p>
-        <a href="{{ route('menu') }}" class="btn btn-light btn-lg">Посмотреть меню</a>
+        <a href="{{ route('categories') }}" class="btn btn-light btn-lg">Посмотреть меню</a>
     </header>
 
     <div class="container my-5">
