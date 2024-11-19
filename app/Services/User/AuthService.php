@@ -7,23 +7,22 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
-
-    public function handle($request)
+    public function save_url()
     {
         Auth::attempt($request->only('email', 'password'));
         if (Auth::attempt($request->only('email', 'password'))) {
             return redirect()->route('home');
         }
+    }
 
-        return redirect()->route('user.login')->withErrors([
-            'password' => 'Неправильный пароль.',
-        ])->withInput();
+    public function handle($request)
+    {
+        return Auth::attempt($request->only('email', 'password'));
     }
 
     public function registration($request)
     {
-        User::create($request->all());
-        Auth::attempt($request->only('email', 'password'));
-        return redirect()->route('home');
+        $user = User::create($request->all());
+        Auth::login($user);
     }
 }

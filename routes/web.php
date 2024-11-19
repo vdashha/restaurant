@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PromotionController::class, 'readPromtions'])->name('home');
 
+Route::get('/', [PromotionController::class, 'readPromtions'])->name('home');
 
 Route::get('/user/login', [UserController::class, 'showLoginForm'])->name('user.login');
 Route::get('/user', [UserController::class, 'login'])->name('login');
@@ -36,6 +36,4 @@ Route::post('/user/logout', function () {
 Route::get('/categories', [CategoryController::class, 'readCategories'])->name('categories');
 
 Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
-
-
 
