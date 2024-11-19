@@ -9,9 +9,9 @@ class AuthService
 {
     public function save_url()
     {
-        Auth::attempt($request->only('email', 'password'));
-        if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('home');
+        $previousUrl = url()->previous();
+        if ($previousUrl !== route('user.login') && $previousUrl !== route('user.signup')) {
+            session()->put('url.intended', $previousUrl);
         }
     }
 

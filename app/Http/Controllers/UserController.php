@@ -24,7 +24,6 @@ class UserController extends BaseController
         return view('login.auth');
     }
 
-
     public function showRegistrationForm(AuthService $authService)
     {
         $authService->save_url();
