@@ -14,37 +14,26 @@
 
     <div class="container my-5">
         <h2 class="text-center">Специальные предложения</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ asset('images/home/sets.jpg') }}" class="card-img-top" alt="Сет из 3-х блюд" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Сет из 3-х блюд</h5>
-                        <p class="card-text">Попробуйте наш уникальный сет из трех блюд по специальной цене!</p>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Заказать</a>
+        <div class="row justify-content-center">
+            @foreach($promotions as $offer)
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ asset($offer->image) }}" class="card-img-top" alt="{{ $offer->title }}" style="height: 200px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $offer->title }}</h5>
+                            <p class="card-text">{{ $offer->description }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    Срок действия: {{ \Carbon\Carbon::parse($offer->start_date)->format('d.m.Y') }} - {{ \Carbon\Carbon::parse($offer->end_date)->format('d.m.Y') }}
+                                </small>
+                            </p>
+                            <div class="mt-auto">
+                                <a href="{{ route('home') }}" class="btn btn-primary">Заказать</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ asset('images/home/cakes.jpg') }}" class="card-img-top" alt="Десерт дня" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Десерт дня</h5>
-                        <p class="card-text">Каждый день у нас новый вкусный десерт по сниженной цене!</p>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Заказать</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ asset('images/home/drinks.jpg') }}" class="card-img-top" alt="Напитки со скидкой" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Напитки со скидкой</h5>
-                        <p class="card-text">Скидка на все напитки в течение happy hour!</p>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Заказать</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <h2 class="text-center mt-5">О нас</h2>

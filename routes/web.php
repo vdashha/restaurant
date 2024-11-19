@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PromotionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main');
-})->name('home');
+Route::get('/', [PromotionController::class, 'readPromtions'])->name('home');
 
 
 Route::get('/user/login', [UserController::class, 'showLoginForm'])->name('user.login');
@@ -34,8 +33,10 @@ Route::post('/user/logout', function () {
 })->name('user.logout');
 
 Route::get('/menu', function () {
-    return view('main');
+    return redirect()->route('home');
 })->name('menu');
+
+Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
 
 
 
