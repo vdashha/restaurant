@@ -18,27 +18,37 @@ class UserController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function showLoginForm()
+    public function showLoginForm(AuthService $authService)
     {
+        $authService->save_url();
         return view('login.auth');
     }
 
-    public function showRegistrationForm()
+
+    public function showRegistrationForm(AuthService $authService)
     {
+        $authService->save_url();
         return view('login.signup');
     }
 
     public function store(RegistrationRequest $request, AuthService $authService)
     {
-        return $authService->registration($request);
+        $authService->registration($request);
+        return redirect()->intended('/');
+
     }
 
     public function login(LoginRequest $request, AuthService $authService)
     {
-        $authService->handle($request);
-        return redirect()->route('home');
+        if ($authService->handle($request)) {
+            return redirect()->intended('/');
+        }
 
+        return redirect()->route('user.login')->withErrors([
+            'password' => 'Неправильный пароль.',
+        ])->withInput();
     }
+
 
     public function showProfile()
     {

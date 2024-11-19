@@ -7,24 +7,23 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
+    public function save_url()
+    {
+        $previousUrl = url()->previous();
+
+        if ($previousUrl !== route('user.login') && $previousUrl !== route('user.signup')) {
+            session()->put('url.intended', $previousUrl);
+        }
+    }
 
     public function handle($request)
     {
-        Auth::attempt($request->only('email', 'password'));
-        if (Auth::attempt($request->only('email', 'password')))
-        {
-            return redirect()->route('home');
-        }
-
-        return redirect()->route('user.login')->withErrors([
-            'password' => 'Неправильный пароль.',
-        ])->withInput();
+        return Auth::attempt($request->only('email', 'password'));
     }
 
     public function registration($request)
     {
-        User::create($request->all());
-        Auth::attempt($request->only('email', 'password'));
-        return redirect()->route('home');
+        $user = User::create($request->all());
+        Auth::login($user);
     }
 }
