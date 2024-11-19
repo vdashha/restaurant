@@ -11,8 +11,7 @@ class AuthService
     public function handle($request)
     {
         Auth::attempt($request->only('email', 'password'));
-        if (Auth::attempt($request->only('email', 'password')))
-        {
+        if (Auth::attempt($request->only('email', 'password'))) {
             return redirect()->route('home');
         }
 
