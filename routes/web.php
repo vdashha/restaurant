@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main');})->name('home');
 
+Route::get('/', [PromotionController::class, 'readPromtions'])->name('home');
 
 Route::get('/user/login', [UserController::class, 'showLoginForm'])->name('user.login');
 Route::get('/user', [UserController::class, 'login'])->name('login');
@@ -32,5 +33,7 @@ Route::post('/user/logout', function () {
     return redirect()->route('home'); // Перенаправление на главную страницу после выхода
 })->name('user.logout');
 
-Route::get('/menu', function () {
-    return view('welcome');})->name('menu');
+Route::get('/categories', [CategoryController::class, 'readCategories'])->name('categories');
+
+Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
+
