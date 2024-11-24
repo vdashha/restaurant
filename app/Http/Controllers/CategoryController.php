@@ -13,9 +13,18 @@ class CategoryController extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
 
-    public static function readCategories()
+    public function showCategories()
     {
-        $categories = Сategory::all();
-        return view('menu.categories', compact('categories'));
+        $categories = Сategory::whereNull('parent_id')->get();
+        $title = 'Категории меню';
+        return view('menu.categories', compact('categories', 'title'));
+    }
+
+    public function showSubCategories(int $categoryId)
+    {
+        $category = Сategory::with('subcategories')->findOrFail($categoryId);
+        $categories = $category->subCategories; // Category::where('parent_id', $categoryId)->get();
+        $title = $category->title;
+        return view('menu.categories', compact('categories', 'title'));
     }
 }

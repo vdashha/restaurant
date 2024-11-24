@@ -33,7 +33,9 @@ Route::post('/user/logout', function () {
     return redirect()->route('home'); // Перенаправление на главную страницу после выхода
 })->name('user.logout');
 
-Route::get('/categories', [CategoryController::class, 'readCategories'])->name('categories');
+Route::get('/categories', [CategoryController::class, 'showCategories'])->name('categories');
+Route::get('/categories/{category}', [CategoryController::class, 'showSubCategories'])->name('subcategories');
 
 Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
+
 
