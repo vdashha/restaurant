@@ -10,9 +10,11 @@ RUN apt-get update && apt-get install -y \
         libicu-dev \
     && docker-php-ext-install -j$(nproc) gd pdo_mysql sockets \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install intl
+    && docker-php-ext-install intl \
+    && docker-php-ext-configure exif \
+    && docker-php-ext-install exif
 
-RUN pecl install xdebug \ && docker-php-ext-enable xdebug
+#RUN pecl install xdebug \ && docker-php-ext-enable xdebug
 RUN pecl install -o -f redis \ &&  rm -rf /tmp/pear \ &&  docker-php-ext-enable redis
 RUN pecl install zip \ && docker-php-ext-enable zip
 
