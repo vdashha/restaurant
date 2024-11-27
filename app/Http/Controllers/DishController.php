@@ -18,6 +18,6 @@ class DishController extends BaseController
     {
         $dishes = Dish::all();
         $title = Category::find($category_id)->title;
-        return view('menu.dishes', compact('dishes', 'title'));
+        return view('menu.1', compact('dishes', 'title'));
     }
 }

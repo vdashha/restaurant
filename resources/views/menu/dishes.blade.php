@@ -7,13 +7,12 @@
             @foreach($dishes as $dish)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img  class="card-img-top" alt="{{ $dish->title }}"
+                        <img src="{{ asset($dish->image->getUrl()) }}" class="card-img-top" alt="{{ $dish->title }}"
                              style="height: 200px; object-fit: cover;">
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ $dish->title }}</h5>
-                            <p class="card-text">{{ $dish->description }}</p>
+                            <p class="card-text">{{ $dish->description }} / {{ $dish->weight }}</p>
                             <p class="card-text"><strong>Цена: {{ number_format($dish->price, 2) }} ₽</strong></p>
-                            <p class="card-text"><small>Вес: {{ $dish->weight }} г</small></p>
                         </div>
                     </div>
                 </div>
