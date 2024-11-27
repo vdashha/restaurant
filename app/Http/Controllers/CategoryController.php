@@ -25,6 +25,12 @@ class CategoryController extends BaseController
         $category = Category::with('subcategories')->findOrFail($categoryId);
         $categories = $category->subCategories; // Category::where('parent_id', $categoryId)->get();
         $title = $category->title;
+
+        if ($categories->isEmpty()) {
+            return redirect()->route('dishes', $categoryId); // Вызов метода, если подкатегорий нет
+        }
+
         return view('menu.categories', compact('categories', 'title'));
     }
+
 }
