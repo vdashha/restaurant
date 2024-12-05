@@ -18,7 +18,7 @@
             @foreach($promotions as $offer)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="{{ asset($offer->image) }}" class="card-img-top" alt="{{ $offer->title }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ asset($offer->image?->getUrl()) }}" class="card-img-top" alt="{{ $offer->title }}" style="height: 200px; object-fit: cover;">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $offer->title }}</h5>
                             <p class="card-text">{{ $offer->description }}</p>

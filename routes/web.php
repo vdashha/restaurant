@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DishController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,11 @@ Route::post('/user/logout', function () {
     return redirect()->route('home'); // Перенаправление на главную страницу после выхода
 })->name('user.logout');
 
-Route::get('/categories', [CategoryController::class, 'readCategories'])->name('categories');
+Route::get('/categories', [CategoryController::class, 'showCategories'])->name('categories');
+Route::get('/categories/{category}', [CategoryController::class, 'showSubCategories'])->name('subcategories');
+
+Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('dishes');
 
 Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
+
 

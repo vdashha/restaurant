@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Сategory;
+use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -13,9 +13,24 @@ class CategoryController extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
 
-    public static function readCategories()
+    public function showCategories()
     {
-        $categories = Сategory::all();
-        return view('menu.categories', compact('categories'));
+        $categories = Category::whereNull('parent_id')->get();
+        $title = 'Категории меню';
+        return view('menu.categories', compact('categories', 'title'));
     }
+
+    public function showSubCategories(int $categoryId)
+    {
+        $category = Category::with('subcategories')->findOrFail($categoryId);
+        $categories = $category->subCategories; // Category::where('parent_id', $categoryId)->get();
+        $title = $category->title;
+
+        if ($categories->isEmpty()) {
+            return redirect()->route('dishes', $categoryId); // Вызов метода, если подкатегорий нет
+        }
+
+        return view('menu.categories', compact('categories', 'title'));
+    }
+
 }
