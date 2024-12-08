@@ -30,7 +30,8 @@ class DishResource extends Resource
             SpatieMediaLibraryFileUpload::make('image')
                 ->image()
                 ->label('Изображение')
-                ->collection('image'),
+                ->collection('image')
+                ->required(),
 
             Forms\Components\TextInput::make('title')
                 ->label('Название')
@@ -49,7 +50,12 @@ class DishResource extends Resource
 
             Forms\Components\TextInput::make('weight')
                 ->label('Вес')
-                ->maxLength(255)
+                ->maxLength(255),
+
+            Select::make('category_id')
+                ->label('Категория')
+                ->options(Category::all()->pluck('title', 'id'))
+                ->searchable()
                 ->required(),
         ]);
     }
