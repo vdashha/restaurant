@@ -10,12 +10,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $cart = Cart::with('items.dish')->where('client_id', auth()->id())->first();
+        $cart = Cart::with('items.dish')->where('client_id', Auth::guard('client')->id())->first();
 
         if (!$cart) {
             // Если корзина не найдена, создайте её или передайте пустую корзину
@@ -27,7 +28,7 @@ class CartController extends Controller
 
     public function add(int $dish_id)
     {
-        $cart = Cart::firstOrCreate(['client_id' => auth()->id()]);
+        $cart = Cart::firstOrCreate(['client_id' => Auth::guard('client')->id()]);
         $cart->items()->updateOrCreate(
             ['dish_id' => $dish_id],
             ['quantity' => Cart::raw('quantity + 1')]

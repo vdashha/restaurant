@@ -49,7 +49,7 @@
                         стоимость: {{ number_format($cart->items->sum(fn($item) => $item->dish->price * $item->quantity), 2) }}
                         ₽</h4>
                     <div class="text-end mt-3">
-                        <a href="#" class="btn btn-primary">Оформить заказ</a>
+                        <a href="{{ route('orders.store') }}" class="btn btn-primary">Оформить заказ</a>
                     </div>
                 </div>
             </div>
