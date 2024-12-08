@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatusEnum;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -25,7 +26,7 @@ class OrderController extends Controller
         $order = Order::create([
             'client_id' => Auth::guard('client')->id(),
             'total_price' => array_sum($cart->items->map(fn($item) => $item->dish->price * $item->quantity)->toArray()),
-
+            'status' => OrderStatusEnum::NEW
         ]);
 
         foreach ($cart->items as $item) {

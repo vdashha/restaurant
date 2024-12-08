@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained()->onDelete('cascade'); // Заказчик
             $table->decimal('total_price', 10, 2); // Итоговая стоимость
-            $table->string('status')->default('pending'); // Статус заказа
+            $table->string('status')->default(\App\Enums\OrderStatusEnum::NEW->value); // Статус заказа
             $table->timestamps();
         });
     }

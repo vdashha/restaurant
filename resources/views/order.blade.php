@@ -7,7 +7,7 @@
         <div class="order-details">
             <p><strong>Номер заказа:</strong> {{ $order->id }}</p>
             <p><strong>Дата:</strong> {{ $order->created_at->format('d.m.Y H:i') }}</p>
-            <p><strong>Статус:</strong> {{ $order->status }}</p>
+            <p><strong>Статус:</strong> {{ $order->status->label() }}</p>
         </div>
 
         <table class="table table-bordered">
