@@ -11,7 +11,7 @@ enum OrderStatusEnum: string
     case COMPLETED = 'completed';
     case FAILED = 'failed';
 
-    public function label()
+    public function label(): string
     {
         return match ($this) {
             self::NEW => 'новый',
@@ -22,5 +22,15 @@ enum OrderStatusEnum: string
             self::COMPLETED => 'выдан',
             self::FAILED => 'отменен',
         };
+    }
+
+    public function isNew(): bool
+    {
+        return $this === self::NEW;
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this === self::COMPLETED;
     }
 }

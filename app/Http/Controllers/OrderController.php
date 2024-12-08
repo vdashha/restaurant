@@ -7,14 +7,21 @@ use App\Models\Order;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Category;
+use App\Models\OrderItem;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    public function index(){
+        $orders=Order::where('client_id', Auth::guard('client')->id())->get();
+        return view('ordersList', compact('orders'));
+    }
+
     public function store()
     {
         $cart = Cart::with('items.dish')->where('client_id', Auth::guard('client')->id())->first(); // Предполагается, что корзина хранится в сессии
@@ -47,5 +54,10 @@ class OrderController extends Controller
     {
         return view('order', compact('order'));
     }
-}
 
+    public function remove(Order $order)
+    {
+        $order->update(['status' => OrderStatusEnum::FAILED]);
+        return redirect()->back();
+    }
+}

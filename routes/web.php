@@ -48,8 +48,12 @@ Route::middleware('auth:client')->group(function () {
 });
 
 Route::middleware(['auth:client'])->group(function () {
+    Route::get('/order', [OrderController::class, 'index'])->name('order.index');
     Route::get('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{order}/remove', [OrderController::class, 'remove'])->name('orders.remove');
 });
+
+
 
 

@@ -151,6 +151,7 @@
                     <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">Home</a></li>
                     <li><a href="{{ route('categories') }}" class="nav-link px-2 text-secondary">Menu</a></li>
                     <li><a href="{{route('cart.index')}}" class="nav-link px-2 text-secondary">Cart</a></li>
+                    <li><a href="{{route('order.index')}}" class="nav-link px-2 text-secondary">Order</a></li>
                 </ul>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
