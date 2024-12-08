@@ -13,6 +13,7 @@
                             <h5 class="card-title">{{ $dish->title }}</h5>
                             <p class="card-text">{{ $dish->description }} / {{ $dish->weight }}</p>
                             <p class="card-text"><strong>Цена: {{ number_format($dish->price, 2) }} ₽</strong></p>
+                            <a href="{{ route('cart.add', $dish->id ) }}" class="btn btn-light btn-lg">В корзину</a>
                         </div>
                     </div>
                 </div>

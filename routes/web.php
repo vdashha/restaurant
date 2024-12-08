@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\CategoryController;
@@ -41,4 +42,10 @@ Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('d
 
 Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/cart/add/{dish_id}', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+});
 

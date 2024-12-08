@@ -16,7 +16,7 @@ class DishController extends BaseController
 
     public function showDishes(int $category_id)
     {
-        $dishes = Dish::all();
+        $dishes = Dish::where('category_id', $category_id)->get();
         $title = Category::find($category_id)->title;
         return view('menu.dishes', compact('dishes', 'title'));
     }
