@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\Models\User;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService
@@ -17,12 +17,12 @@ class AuthService
 
     public function handle($request)
     {
-        return Auth::attempt($request->only('email', 'password'));
+        return Auth::guard('client')->attempt($request->only('email', 'password'));
     }
 
     public function registration($request)
     {
-        $user = User::create($request->all());
-        Auth::login($user);
+        $user = Client::create($request->all());
+        Auth::guard('client')->login($user);
     }
 }

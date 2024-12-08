@@ -48,10 +48,15 @@ class UserController extends BaseController
         ])->withInput();
     }
 
+    public function logout(){
+        Auth::guard('client')->logout();
+        return redirect()->route('home');
+    }
+
 
     public function showProfile()
     {
-        $user = Auth::user();
+        $user = Auth::guard('client')->user();
         return view('profile', compact('user'));
     }
 
