@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
     <div>
-        <form action="{{ route('user.store') }}" method="post">
+        <form action="{{ route('client.store') }}" method="post">
             @csrf
 
             <div class="mb-3">

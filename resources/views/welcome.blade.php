@@ -163,7 +163,7 @@
                 @auth('client')
                     <!-- Если пользователь аутентифицирован -->
                         <a href="{{ route('profile.show') }}" class="btn btn-outline-light me-2">Profile</a>
-                        <form action="{{ route('user.logout') }}" method="POST" style="display:inline;">
+                        <form action="{{ route('client.logout') }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-warning">Logout</button>
                         </form>
@@ -171,8 +171,8 @@
 
                 @else
                     <!-- Если пользователь не аутентифицирован -->
-                        <a href="{{ route('user.login') }}" class="btn btn-outline-light me-2">Login</a>
-                        <a href="{{ route('user.signup') }}" class="btn btn-warning">Sign-up</a>
+                        <a href="{{ route('client.login.form') }}" class="btn btn-outline-light me-2">Login</a>
+                        <a href="{{ route('client.signup') }}" class="btn btn-warning">Sign-up</a>
                     @endauth
                 </div>
             </div>

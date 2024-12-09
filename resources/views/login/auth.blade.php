@@ -2,7 +2,7 @@
 @section('content')
     <div>
 
-        <form action="{{route('login')}}" method="get">
+        <form action="{{route('client.login')}}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="email">Email</label>

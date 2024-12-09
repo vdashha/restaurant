@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DishController;
@@ -22,36 +22,55 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PromotionController::class, 'readPromtions'])->name('home');
 
-Route::get('/user/login', [UserController::class, 'showLoginForm'])->name('user.login');
-Route::get('/user', [UserController::class, 'login'])->name('login');
 
-Route::get('/user/signup', [UserController::class, 'showRegistrationForm'])->name('user.signup');
-Route::post('/user', [UserController::class, 'store'])->name('user.store');
+Route::prefix('/clients')
+    ->controller(ClientController::class)
+    ->group(function () {
+        Route::get('/login', 'showLoginForm')->name('client.login.form');
+        Route::post('/login', 'login')->name('client.login');
 
-Route::get('/user/profile', [UserController::class, 'showProfile'])->name('profile.show');
-Route::put('/user/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/signup', 'showRegistrationForm')->name('client.signup');
+        Route::post('/', 'store')->name('user.store');
 
-Route::post('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+        Route::middleware(['auth:client'])->group(function () {
+            Route::get('/profile', 'showProfile')->name('profile.show');
+            Route::put('/profile', 'updateProfile')->name('profile.update');
 
-Route::get('/categories', [CategoryController::class, 'showCategories'])->name('categories');
-Route::get('/categories/{category}', [CategoryController::class, 'showCategories'])->name('subcategories');
+            Route::post('/logout', 'logout')->name('client.logout');
+        });
+    });
+
+Route::prefix('/categories')
+    ->controller(CategoryController::class)
+    ->group(function () {
+        Route::get('/', 'showCategories')->name('categories');
+        Route::get('/{category}', 'showCategories')->name('subcategories');
+    });
 
 Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('dishes');
 
 Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
 
 Route::middleware('auth:client')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::get('/cart/add/{dish_id}', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::prefix('/cart')
+        ->controller(CartController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('cart.index');
+            Route::get('/add/{dish_id}', 'add')->name('cart.add');
+            Route::post('/update', 'update')->name('cart.update');
+            Route::delete('/remove', 'remove')->name('cart.remove');
+        });
 });
 
 Route::middleware(['auth:client'])->group(function () {
-    Route::get('/order', [OrderController::class, 'index'])->name('order.index');
-    Route::get('/orders', [OrderController::class, 'store'])->name('orders.store');
-    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-    Route::post('/orders/{order}/remove', [OrderController::class, 'remove'])->name('orders.remove');
+    Route::prefix('/orders')
+        ->controller(OrderController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('order.index');
+            Route::post('/', 'store')->name('orders.store');
+            Route::get('/{order}', 'show')->name('orders.show');
+            Route::post('/{order}/remove', 'remove')->name('orders.remove');
+        });
 });
 
 

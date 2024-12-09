@@ -15,7 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends BaseController
+class ClientController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
@@ -26,7 +26,10 @@ class UserController extends BaseController
 
     public function showLoginForm()
     {
-        $this->authService->save_url();
+        $previousUrl = url()->previous();
+        if ($previousUrl !== route('client.login.form') && $previousUrl !== route('client.signup')) {
+            session()->put('url.intended', $previousUrl);
+        }
         return view('login.auth');
     }
 
@@ -48,7 +51,7 @@ class UserController extends BaseController
             return redirect()->intended('/');
         }
 
-        return redirect()->route('user.login')->withErrors([
+        return redirect()->route('client.login')->withErrors([
             'password' => 'Неправильный пароль.',
         ])->withInput();
     }
