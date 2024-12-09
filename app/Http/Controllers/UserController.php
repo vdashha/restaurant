@@ -10,6 +10,7 @@ use App\Services\User\AuthService;
 use App\Services\User\ProfileService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,28 +19,32 @@ class UserController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function showLoginForm(AuthService $authService)
+    public function __construct(private readonly AuthService $authService)
     {
-        $authService->save_url();
+
+    }
+
+    public function showLoginForm()
+    {
+        $this->authService->save_url();
         return view('login.auth');
     }
 
-    public function showRegistrationForm(AuthService $authService)
+    public function showRegistrationForm()
     {
-        $authService->save_url();
+        $this->authService->save_url();
         return view('login.signup');
     }
 
-    public function store(RegistrationRequest $request, AuthService $authService)
+    public function store(RegistrationRequest $request): RedirectResponse
     {
-        $authService->registration($request);
+        $this->authService->registration($request);
         return redirect()->intended('/');
-
     }
 
-    public function login(LoginRequest $request, AuthService $authService)
+    public function login(LoginRequest $request)
     {
-        if ($authService->handle($request)) {
+        if ($this->authService->handle($request)) {
             return redirect()->intended('/');
         }
 
@@ -48,7 +53,8 @@ class UserController extends BaseController
         ])->withInput();
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::guard('client')->logout();
         return redirect()->route('home');
     }

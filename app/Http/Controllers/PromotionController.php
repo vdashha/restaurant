@@ -12,7 +12,6 @@ class PromotionController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-
     public static function readPromtions()
     {
         $promotions=Promotion::all();

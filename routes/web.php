@@ -34,7 +34,7 @@ Route::put('/user/profile', [UserController::class, 'updateProfile'])->name('pro
 Route::post('/user/logout', [UserController::class, 'logout'])->name('user.logout');
 
 Route::get('/categories', [CategoryController::class, 'showCategories'])->name('categories');
-Route::get('/categories/{category}', [CategoryController::class, 'showSubCategories'])->name('subcategories');
+Route::get('/categories/{category}', [CategoryController::class, 'showCategories'])->name('subcategories');
 
 Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('dishes');
 

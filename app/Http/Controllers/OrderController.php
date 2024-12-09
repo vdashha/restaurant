@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\OrderItem;
+use App\Services\OrderService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,35 +18,19 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function index(){
-        $orders=Order::where('client_id', Auth::guard('client')->id())->get();
+    public function index()
+    {
+        $orders = Order::where('client_id', Auth::guard('client')->id())->get();
         return view('ordersList', compact('orders'));
     }
 
-    public function store()
+    public function store(OrderService $orderService)
     {
-        $cart = Cart::with('items.dish')->where('client_id', Auth::guard('client')->id())->first(); // Предполагается, что корзина хранится в сессии
-
-        if (empty($cart['items'])) {
-            return redirect()->route('cart.show')->with('error', 'Ваша корзина пуста');
+        try {
+            $order = $orderService->addOrder();
+        } catch (\Exception $exception) {
+            return redirect()->route('cart.show')->with('error', $exception->getMessage());
         }
-        // Используем коллекцию напрямую, не приводя ее к массиву
-        $order = Order::create([
-            'client_id' => Auth::guard('client')->id(),
-            'total_price' => array_sum($cart->items->map(fn($item) => $item->dish->price * $item->quantity)->toArray()),
-            'status' => OrderStatusEnum::NEW
-        ]);
-
-        foreach ($cart->items as $item) {
-            $order->items()->create([
-                'dish_id' => $item->dish_id,
-                'quantity' => $item->quantity,
-                'price' => $item->dish->price,
-            ]);
-        }
-
-        // Очистка корзины
-        CartItem::where('cart_id', $cart->id)->delete();
 
         return redirect()->route('orders.show', $order)->with('success', 'Ваш заказ успешно оформлен!');
     }
