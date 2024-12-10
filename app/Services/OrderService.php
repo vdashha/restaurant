@@ -14,7 +14,7 @@ class OrderService
 {
     public function addOrder(): Order
     {
-        $cart = Cart::with('items.dish')->where('client_id', Auth::guard('client')->id())->first(); // Предполагается, что корзина хранится в сессии
+        $cart = Cart::with('items.dish')->where('client_id', Auth::guard('client')->id())->first();
 
         if (empty($cart['items'])) {
             throw new \Exception('Ваша корзина пуста');

@@ -14,7 +14,9 @@ class PromotionController extends BaseController
 
     public static function readPromtions()
     {
-        $promotions=Promotion::all();
+        $promotions = Promotion::where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->get();
         return view('main', compact('promotions'));
     }
 }
