@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\OrderStatusEnum;
+use App\Http\Requests\OrderRequest;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Category;
@@ -12,11 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderService
 {
-    public function addOrder(): Order
+    public function addOrder(OrderRequest $orderRequest): Order
     {
         $cart = Cart::with('items.dish')->where('client_id', Auth::guard('client')->id())->first();
 
-        if (empty($cart['items'])) {
+        if ($cart->items->isEmpty()) {
             throw new \Exception('Ваша корзина пуста');
         }
 
@@ -24,7 +25,13 @@ class OrderService
         $order = Order::create([
             'client_id' => Auth::guard('client')->id(),
             'total_price' => array_sum($cart->items->map(fn($item) => $item->dish->price * $item->quantity)->toArray()),
-            'status' => OrderStatusEnum::NEW
+            'status' => OrderStatusEnum::NEW,
+            'name' => $orderRequest->name,
+            'phone_number' => $orderRequest->phone,
+            'time' => $orderRequest->ready_time,
+            'adress' => $orderRequest->restaurant,
+            'comment' => $orderRequest->comment,
+            'payment' => $orderRequest->payment_method,
         ]);
 
         foreach ($cart->items as $item) {

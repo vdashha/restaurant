@@ -59,7 +59,7 @@ class ClientController extends BaseController
     public function logout()
     {
         Auth::guard('client')->logout();
-        return redirect()->route('home');
+        return redirect()->back();
     }
 
 

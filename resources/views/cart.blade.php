@@ -49,7 +49,7 @@
                         стоимость: {{ number_format($cart->items->sum(fn($item) => $item->dish->price * $item->quantity), 2) }}
                         ₽</h4>
                     <div class="text-end mt-3">
-                        <form action="{{ route('orders.store') }}" method="POST">
+                        <form action="{{ route('orders.placingOrder') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-primary">Оформить заказ</button>
                         </form>
