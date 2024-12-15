@@ -23,7 +23,7 @@ class CartController extends Controller
     public function index()
     {
         $cart = $this->cartService->index();
-        return view('cart', compact('cart'));
+        return view('user.cart', compact('cart'));
     }
 
     public function add(int $dish_id)
