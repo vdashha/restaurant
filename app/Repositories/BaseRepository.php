@@ -39,7 +39,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function all(): Collection
     {
-        return $this->baseQuery()->all();
+        return $this->model::all();
     }
 
     /**

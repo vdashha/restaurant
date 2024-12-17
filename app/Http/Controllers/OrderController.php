@@ -8,6 +8,7 @@ use App\Http\Requests\OrderRequest;
 use App\Models\CartItem;
 use App\Repositories\CartRepository;
 use App\Repositories\OrderRepository;
+use App\Repositories\RestaurantRepository;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class OrderController extends Controller
 {
 
 
-    public function __construct(private OrderRepository $orderRepository, private CartRepository  $cartRepository)
+    public function __construct(private OrderRepository $orderRepository, private CartRepository $cartRepository, private RestaurantRepository $restaurantRepository)
     {
     }
 
@@ -56,7 +57,7 @@ class OrderController extends Controller
         $cart = $this->cartRepository->setWith(['items.dish'])->findByClientId(Auth::guard('client')->id());
         $totalAmount = array_sum($cart->items->map(fn(CartItem $item) => $item->dish->price * $item->quantity)->toArray());
 
-        $restaurants = ['ул. Сурганова 37/2'];
+        $restaurants = $this->restaurantRepository->all();
         return view('orders.orderForm', compact('restaurants', 'totalAmount'));
     }
 

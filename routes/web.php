@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PromotionController;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [PromotionController::class, 'readPromotions'])->name('home');
+Route::get('/', [HomeController::class, 'getInformationForHomePage'])->name('home');
 
 
 Route::prefix('/clients')

@@ -38,8 +38,8 @@
                 <label for="restaurant" class="form-label">Выберите ресторан для получения</label>
                 <select class="form-select" id="restaurant" name="restaurant" required>
                     <option value="" selected disabled>Выберите ресторан</option>
-                    @foreach($restaurants as $index => $restaurant)
-                        <option value="{{ $index + 1 }}">{{ $restaurant }}</option>
+                    @foreach($restaurants as $restaurant)
+                        <option value="{{ $restaurant->id }}">{{ $restaurant->address }}</option>
                     @endforeach
                 </select>
             </div>
