@@ -20,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', [HomeController::class, 'getInformationForHomePage'])->name('home');
-
 
 Route::prefix('/clients')
     ->controller(ClientController::class)
@@ -49,7 +47,6 @@ Route::prefix('/categories')
     });
 
 Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('dishes');
-
 Route::get('/promotions', [PromotionController::class, 'readPromotions'])->name('promotions');
 
 Route::middleware('auth:client')->group(function () {
@@ -74,7 +71,3 @@ Route::middleware(['auth:client'])->group(function () {
             Route::post('/{order}/remove', 'remove')->name('orders.remove');
         });
 });
-
-
-
-

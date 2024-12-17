@@ -9,7 +9,7 @@
                 Заказы отсутствуют.
             </div>
         @else
-            <table class="table table-striped">
+            <table class="table table-striped" style="background-color: #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden;">
                 <thead>
                 <tr>
                     <th>Номер заказа</th>

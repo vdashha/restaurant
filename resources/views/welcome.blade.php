@@ -3,15 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Пример на bootstrap 5: Заголовки, - брендинг, навигация, поиск · Версия v5.3.1">
-    <title>Заголовки | Headers for Bootstrap · Версия v5.3.1</title>
+    <title>Ресторан</title>
 
     <link rel="canonical" href="https://bootstrap-4.ru/docs/5.3/examples/headers/">
 
     <!-- Bootstrap core CSS -->
     <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -22,9 +20,8 @@
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#712cf9">
 
-
     <style>
-
+        /* Основной стиль для изображения-заполнителя */
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -35,36 +32,41 @@
 
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
-                font-size: 3.5rem;
+                font-size: 4rem; /* Увеличен размер для больших экранов */
             }
         }
 
+        /* Разделитель */
         .b-example-divider {
             width: 100%;
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .3)); /* Градиентный разделитель */
+            border: none;
             box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
         }
 
+        /* Вертикальный разделитель */
         .b-example-vr {
             flex-shrink: 0;
-            width: 1.5rem;
+            width: 2px;
             height: 100vh;
+            background-color: rgba(0, 0, 0, .15);
         }
 
+        /* Иконки (например, иконки Bootstrap) */
         .bi {
             vertical-align: -.125em;
             fill: currentColor;
         }
 
-
+        /* Скроллер навигации */
         .nav-scroller {
             position: relative;
             z-index: 2;
             height: 2.75rem;
             overflow-y: hidden;
+            background-color: rgba(0, 0, 0, .05);
+            box-shadow: 0 .5rem .5rem rgba(0, 0, 0, .1); /* Тень для улучшения контраста */
         }
 
         .nav-scroller .nav {
@@ -76,12 +78,26 @@
             text-align: center;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+            font-weight: 600;
         }
 
+        .nav-scroller .nav-link {
+            font-size: 1rem;
+            padding: 8px 16px;
+            color: #555;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-scroller .nav-link:hover {
+            color: #fff;
+            background-color: #007bff; /* Плавный переход на синий при наведении */
+            border-radius: 25px;
+        }
+
+        /* Кнопка Primary (удобно для всех кнопок с таким классом) */
         .btn-bd-primary {
             --bd-violet-bg: #712cf9;
             --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
             --bs-btn-font-weight: 600;
             --bs-btn-color: var(--bs-white);
             --bs-btn-bg: var(--bd-violet-bg);
@@ -93,17 +109,60 @@
             --bs-btn-active-color: var(--bs-btn-hover-color);
             --bs-btn-active-bg: #5a23c8;
             --bs-btn-active-border-color: #5a23c8;
+            border-radius: 30px; /* Округленные края кнопок */
+            transition: all 0.3s ease;
         }
 
+        .btn-bd-primary:hover {
+            background-color: #6528e0; /* Изменение фона на более темный при наведении */
+        }
+
+        .btn-bd-primary:focus,
+        .btn-bd-primary:active {
+            box-shadow: 0 0 0 0.2rem rgba(112, 44, 249, 0.5); /* Легкая тень при фокусе */
+        }
+
+        /* Toggle для режима темного/светлого оформления */
         .bd-mode-toggle {
             z-index: 1500;
+            position: relative;
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bd-mode-toggle:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .2);
+        }
+
+        /* Фон с мягким и гармоничным градиентом */
+        body {
+            height: 100vh; /* Задаем высоту на весь экран */
+            margin: 0; /* Убираем отступы по умолчанию */
+            background: linear-gradient(135deg, #c4d9e4, #d8c9e3, #f5f9fc); /* Мягкий градиент с приглушенными оттенками голубого и лавандового */
+            background-size: cover; /* Растягиваем градиент на весь экран */
+            background-attachment: fixed; /* Фиксируем фон, чтобы он не сдвигался при прокрутке */
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Плавный переход для фона */
+        body {
+            transition: background 0.5s ease;
         }
     </style>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+
 
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -142,7 +201,7 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Restaurant">
                         <use xlink:href="#bootstrap"/>
                     </svg>
                 </a>
@@ -174,31 +233,36 @@
                     </li>
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                           aria-label="Search">
-                </form>
-
                 <div class="text-end">
-                @auth('client')
-                    <!-- Если пользователь аутентифицирован -->
+                    @auth('client')
                         <a href="{{ route('profile.show') }}" class="btn btn-outline-light me-2">Profile</a>
                         <form action="{{ route('client.logout') }}" method="POST" style="display:inline;">
                             @csrf
-                            <button type="submit" class="btn btn-warning">Logout</button>
+                            <button type="submit" class="btn btn-warning me-3">Logout</button>
                         </form>
-
-
-                @else
-                    <!-- Если пользователь не аутентифицирован -->
+                    @else
                         <a href="{{ route('client.login.form') }}" class="btn btn-outline-light me-2">Login</a>
-                        <a href="{{ route('client.signup') }}" class="btn btn-warning">Sign-up</a>
+                        <a href="{{ route('client.signup') }}" class="btn btn-warning me-3">Sign-up</a>
+                        <!-- Добавили отступ справа -->
                     @endauth
                 </div>
+
+                <!-- Language Selection Dropdown -->
+                <div class="dropdown d-inline-block">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-globe"></i> <!-- Globe icon from Bootstrap Icons -->
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                        <li><a class="dropdown-item" href="#">En</a></li>
+                        <li><a class="dropdown-item" href="#">Ru</a></li>
+                    </ul>
+                </div>
+
             </div>
         </div>
+        </div>
     </header>
-
 </main>
 
 @yield('content')

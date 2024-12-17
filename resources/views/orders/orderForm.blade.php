@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container my-5">
-        <h1 class="mb-4">Оформление заказа</h1>
+        <h1 class="mb-4" style="font-family: 'Roboto', sans-serif; font-size: 36px; color: #2c3e50;">Оформление заказа</h1>
 
         <form action="{{ route('orders.store') }}" method="POST">
         @csrf
@@ -19,13 +19,6 @@
                 <input type="tel" class="form-control" id="phone" name="phone" placeholder="+375 (__) ___-__-__"
                        pattern="\+375 \(\d{2}\) \d{3}-\d{2}-\d{2}" required>
             </div>
-
-            <!-- Поле для отображения суммы заказа -->
-{{--            <div class="mb-3">--}}
-{{--                <label for="total_amount" class="form-label">Сумма заказа</label>--}}
-{{--                <input type="text" class="form-control" id="total_amount" name="total_amount"--}}
-{{--                       value="{{ number_format($totalAmount, 2) }} BYN" readonly>--}}
-{{--            </div>--}}
 
             <!-- Поле для выбора времени готовности -->
             <div class="mb-3">
@@ -69,7 +62,7 @@
                           placeholder="Введите ваш комментарий (необязательно)"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Оформить заказ</button>
+            <button type="submit" class="btn btn-primary w-100" style="font-size: 18px; background-color: #f39c12; border-color: #f39c12;">Оформить заказ</button>
         </form>
     </div>
 
@@ -115,4 +108,64 @@
             readyTimeInput.setAttribute('max', maxTime);
         });
     </script>
+@endsection
+
+@section('styles')
+    <style>
+        /* Общее оформление формы */
+        .container {
+            padding: 40px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Оформление заголовка */
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Оформление кнопки */
+        .btn-primary {
+            background-color: #f39c12;
+            border-color: #f39c12;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #e67e22;
+            border-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        /* Оформление полей формы */
+        .form-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .form-select {
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .form-check-label {
+            font-size: 16px;
+        }
+
+        .form-check-input {
+            margin-right: 10px;
+        }
+    </style>
 @endsection
