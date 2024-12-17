@@ -41,7 +41,6 @@ class OrderController extends Controller
     public function show(int $id)
     {
         $order = $this->orderRepository->find($id);
-
         return view('orders.order', compact('order'));
     }
 
