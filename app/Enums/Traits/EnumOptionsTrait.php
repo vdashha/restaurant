@@ -9,7 +9,7 @@ trait EnumOptionsTrait
     public static function options(): array
     {
         return Arr::mapWithKeys(self::cases(), function (self $class) {
-            return [$class->name => $class->value ?? $class->label()];
+            return [$class->name => $class->getLabel() ?? $class->value];
         });
     }
 

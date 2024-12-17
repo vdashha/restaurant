@@ -4,15 +4,16 @@ namespace App\Enums;
 
 
 use App\Enums\Traits\EnumOptionsTrait;
+use Filament\Support\Contracts\HasLabel;
 
-enum PaymentMethodEnum: string
+enum PaymentMethodEnum: string implements HasLabel
 {
     use EnumOptionsTrait;
 
     case CARD = 'card';
     case CASH = 'cash';
 
-    public function label(): string
+    public function getLabel(): string
     {
         return match ($this) {
             self::CARD => 'Оплата картой',

@@ -27,19 +27,19 @@
                         <td>{{ number_format($order->total_price, 2, ',', ' ') }} ₽</td>
                         <td>
                             @if($order->status->isNew())
-                                <span class="badge bg-info">{{ $order->status->label() }}</span>
+                                <span class="badge bg-info">{{ $order->status->getLabel() }}</span>
                             @elseif($order->status->isProcess())
-                                <span class="badge bg-primary">{{ $order->status->label() }}</span>
+                                <span class="badge bg-primary">{{ $order->status->getLabel() }}</span>
                             @elseif($order->status->isCompleted())
-                                <span class="badge bg-success">{{ $order->status->label() }}</span>
+                                <span class="badge bg-success">{{ $order->status->getLabel() }}</span>
                             @elseif($order->status->isPendingDelivery())
-                                <span class="badge bg-warning">{{ $order->status->label() }}</span>
+                                <span class="badge bg-warning">{{ $order->status->getLabel() }}</span>
                             @elseif($order->status->isProcessDelivery())
-                                <span class="badge bg-warning">{{ $order->status->label() }}</span>
+                                <span class="badge bg-warning">{{ $order->status->getLabel() }}</span>
                             @elseif($order->status->isFailed())
-                                <span class="badge bg-danger">{{ $order->status->label() }}</span>
+                                <span class="badge bg-danger">{{ $order->status->getLabel() }}</span>
                             @else
-                                <span class="badge bg-secondary">{{ $order->status->label() }}</span>
+                                <span class="badge bg-secondary">{{ $order->status->getLabel() }}</span>
                             @endif
                         </td>
                         <td> <!-- Добавьте класс text-center здесь -->

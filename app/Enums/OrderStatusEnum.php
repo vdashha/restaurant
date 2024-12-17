@@ -3,8 +3,10 @@ namespace App\Enums;
 
 
 use App\Enums\Traits\EnumOptionsTrait;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum OrderStatusEnum: string
+enum OrderStatusEnum: string implements HasColor, HasLabel
 {
     use EnumOptionsTrait;
     case NEW = 'new';
@@ -15,7 +17,7 @@ enum OrderStatusEnum: string
     case COMPLETED = 'completed';
     case FAILED = 'failed';
 
-    public function label(): string
+    public function getLabel(): string
     {
         return match ($this) {
             self::NEW => 'новый',
@@ -61,5 +63,16 @@ enum OrderStatusEnum: string
     public function isFailed(): bool
     {
         return $this === self::FAILED;
+    }
+
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::NEW => 'info',
+            self::PROCESS => 'warning',
+            self::PENDING_DELIVERY, self::PROCESS_DELIVERY => 'primary',
+            self::READY_TO_RECEIVE, self::COMPLETED => 'success',
+            self::FAILED => 'danger',
+        };
     }
 }
