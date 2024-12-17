@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Promotion;
+use App\Repositories\PromotionRepository;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -12,11 +12,14 @@ class PromotionController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public static function readPromtions()
+    public function __construct(private PromotionRepository $promotionRepository)
     {
-        $promotions = Promotion::where('start_date', '<=', now())
-            ->where('end_date', '>=', now())
-            ->get();
+
+    }
+
+    public function readPromotions()
+    {
+        $promotions = $this->promotionRepository->getByActualDate();
         return view('main', compact('promotions'));
     }
 }

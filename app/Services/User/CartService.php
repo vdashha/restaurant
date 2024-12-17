@@ -4,14 +4,21 @@ namespace App\Services\User;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Repositories\CartItemRepository;
+use App\Repositories\CartRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartService
 {
+    public function __construct(private CartRepository $cartRepository, private CartItemRepository $cartItemRepository)
+    {
+
+    }
+
     public function index(): Cart
     {
-        $cart = Cart::with('items.dish')->where('client_id', Auth::guard('client')->id())->first();
+        $cart = $this->cartRepository->setWith(['items.dish'])->findByClientId(Auth::guard('client')->id());
 
         if (!$cart) {
             // Если корзина не найдена, создайте её или передайте пустую корзину
@@ -31,13 +38,13 @@ class CartService
 
     public function updateCart(Request $request)
     {
-        $cartItem = CartItem::find($request->item_id);
+        $cartItem = $this->cartItemRepository->find($request->item_id);
         $cartItem->update(['quantity' => $request->quantity]);
     }
 
     public function removeCart(Request $request)
     {
-        $cartItem = CartItem::find($request->item_id);
+        $cartItem = $this->cartItemRepository->find($request->item_id);
         $cartItem->delete();
     }
 

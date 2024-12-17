@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [PromotionController::class, 'readPromtions'])->name('home');
+Route::get('/', [PromotionController::class, 'readPromotions'])->name('home');
 
 
 Route::prefix('/clients')
@@ -30,7 +30,7 @@ Route::prefix('/clients')
         Route::post('/login', 'login')->name('client.login');
 
         Route::get('/signup', 'showRegistrationForm')->name('client.signup');
-        Route::post('/', 'store')->name('user.store');
+        Route::post('/', 'store')->name('client.store');
 
         Route::middleware(['auth:client'])->group(function () {
             Route::get('/profile', 'showProfile')->name('profile.show');
@@ -49,7 +49,7 @@ Route::prefix('/categories')
 
 Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('dishes');
 
-Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
+Route::get('/promotions', [PromotionController::class, 'readPromotions'])->name('promotions');
 
 Route::middleware('auth:client')->group(function () {
     Route::prefix('/cart')

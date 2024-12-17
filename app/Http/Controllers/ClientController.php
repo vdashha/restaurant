@@ -30,18 +30,21 @@ class ClientController extends BaseController
         if ($previousUrl !== route('client.login.form') && $previousUrl !== route('client.signup')) {
             session()->put('url.intended', $previousUrl);
         }
+
         return view('login.auth');
     }
 
     public function showRegistrationForm()
     {
         $this->authService->save_url();
+
         return view('login.signup');
     }
 
     public function store(RegistrationRequest $request): RedirectResponse
     {
         $this->authService->registration($request);
+
         return redirect()->intended('/');
     }
 
@@ -59,19 +62,21 @@ class ClientController extends BaseController
     public function logout()
     {
         Auth::guard('client')->logout();
+
         return redirect()->back();
     }
-
 
     public function showProfile()
     {
         $user = Auth::guard('client')->user();
+
         return view('user.profile', compact('user'));
     }
 
     public function updateProfile(UpdateRequest $request, ProfileService $profileService)
     {
         $user = $profileService->update($request);
+
         return view('user.profile', compact('user'));
     }
 
