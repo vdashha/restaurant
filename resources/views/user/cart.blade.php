@@ -16,7 +16,7 @@
                     @foreach ($cart->items as $item)
                         <div class="cart-item d-flex align-items-center mb-4 p-4 shadow-sm rounded" style="background-color: #fff; color: #333;">
                             <div class="item-image me-3">
-                                <img src="{{ asset($item->dish->image->getUrl()) }}" alt="{{ $item->dish->title }}"
+                                <img src="{{ asset($item->dish->image?->getUrl()) }}" alt="{{ $item->dish->title }}"
                                      class="img-fluid" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
                             </div>
                             <div class="item-details flex-grow-1">

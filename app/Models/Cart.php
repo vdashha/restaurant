@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $client_id
@@ -25,9 +26,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Cart extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['client_id'];
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(CartItem::class);
     }

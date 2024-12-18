@@ -7,7 +7,7 @@
             @foreach($dishes as $dish)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 border-0 shadow-lg rounded-3 overflow-hidden">
-                        <img src="{{ asset($dish->image->getUrl()) }}" class="card-img-top" alt="{{ $dish->title }}"
+                        <img src="{{ asset($dish->image?->getUrl()) }}" class="card-img-top" alt="{{ $dish->title }}"
                              style="height: 300px; object-fit: cover;">
                         <div class="card-body text-center">
                             <h5 class="card-title" style="font-size: 22px; font-weight: bold; color: #333;">{{ $dish->title }}</h5>

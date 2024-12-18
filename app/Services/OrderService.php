@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Repositories\CartRepository;
 use App\Repositories\OrderRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class OrderService
 {
@@ -59,6 +60,7 @@ class OrderService
         $this->orderRepository->createItems($order, $orderItemsData);
         $this->cartRepository->delete($cart->id);
 
+        Log::info('Order created', $data);
         return $order;
     }
 
