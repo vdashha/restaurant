@@ -46,7 +46,7 @@
     </div>
 
     <!-- О нас с фоном на всю ширину -->
-    <div class="container-fluid" style="background-color: #333; padding: 60px 0;">
+    <div class="container-fluid" style="background-color: #333; padding: 20px 0;">
         <div class="container">
             <h2 class="text-center" style="font-family: 'Poppins', sans-serif; color: #fff;">О нас</h2>
             <p class="text-center" style="font-family: 'Poppins', sans-serif; color: #f0f0f0; line-height: 1.6;">

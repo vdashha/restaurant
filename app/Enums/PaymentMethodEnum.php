@@ -3,12 +3,12 @@
 namespace App\Enums;
 
 
-use App\Enums\Traits\EnumOptionsTrait;
+use App\Enums\Traits\EnumHelperTrait;
 use Filament\Support\Contracts\HasLabel;
 
 enum PaymentMethodEnum: string implements HasLabel
 {
-    use EnumOptionsTrait;
+    use EnumHelperTrait;
 
     case CARD = 'card';
     case CASH = 'cash';
