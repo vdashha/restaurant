@@ -1,20 +1,14 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
-
-    'failed' => 'Учетные данные не совпадают с нашими записями.',
-    'password' => 'Указанный пароль неверен.',
-    'throttle' => 'Слишком много попыток входа. Попробуйте снова через :seconds секунд.',
-
+    'loginForm' => 'Форма входа',
+    'email' => 'Электронная почта',
+    'enterEmail' => 'Введите ваш email',
+    'password' => 'Пароль',
+    'enterPassword' => 'Введите пароль',
+    'loginButton' => 'Войти',
+    'noAccount' => 'Нет аккаунта?',
+    'signup' => 'Зарегистрироваться',
+    'emailError' => 'Введите корректный адрес электронной почты.',
+    'passwordError' => 'Введите правильный пароль.',
 ];
