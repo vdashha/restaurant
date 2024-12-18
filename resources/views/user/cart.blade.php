@@ -1,13 +1,14 @@
 @extends('welcome')
-
 @section('content')
     <div class="container my-5">
-        <h1 class="text-center mb-4" style="font-family: 'Poppins', sans-serif; color: #333;">Корзина</h1>
+        <h1 class="text-center mb-4" style="font-family: 'Poppins', sans-serif; color: #333;">
+            {{ __('cart.cart') }}
+        </h1>
 
         @if ($cart->items->isEmpty())
             <div class="alert alert-info text-center">
-                Ваша корзина пуста. <a href="{{ route('categories') }}" class="btn btn-primary btn-sm">Перейти к
-                    меню</a>
+                {{ __('cart.emptyCart') }}
+                <a href="{{ route('categories') }}" class="btn btn-primary btn-sm">{{ __('cart.goToMenu') }}</a>
             </div>
         @else
             <div class="cart-container">
@@ -19,8 +20,12 @@
                                      class="img-fluid" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
                             </div>
                             <div class="item-details flex-grow-1">
-                                <h5 class="item-title" style="font-size: 1.2rem; font-weight: 600; color: #333;">{{ $item->dish->title }}</h5>
-                                <p class="item-price" style="color: #777; font-size: 1rem;">Цена: {{ number_format($item->dish->price, 2) }} BYN</p>
+                                <h5 class="item-title" style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                                    {{ __('cart.itemTitle', ['title' => $item->dish->title]) }}
+                                </h5>
+                                <p class="item-price" style="color: #777; font-size: 1rem;">
+                                    {{ __('cart.itemPrice', ['price' => number_format($item->dish->price, 2)]) }}
+                                </p>
                             </div>
                             <div class="item-quantity me-3">
                                 <form action="{{ route('cart.update') }}" method="POST">
@@ -28,32 +33,33 @@
                                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                                     <input type="number" name="quantity" class="form-control quantity-input"
                                            value="{{ $item->quantity }}" min="1" style="max-width: 80px;">
-                                    <button type="submit" class="btn btn-sm btn-success mt-2 w-100">Обновить</button>
+                                    <button type="submit" class="btn btn-sm btn-success mt-2 w-100">{{ __('cart.update') }}</button>
                                 </form>
                             </div>
                             <div class="item-total me-3" style="font-weight: bold; color: #333;">
-                                {{ number_format($item->dish->price * $item->quantity, 2) }} BYN
+                                {{ __('cart.itemTotal', ['total' => number_format($item->dish->price * $item->quantity, 2)]) }}
                             </div>
                             <form action="{{ route('cart.remove') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="item_id" value="{{ $item->id }}">
-                                <button type="submit" class="btn btn-danger mt-2">Удалить</button>
+                                <button type="submit" class="btn btn-danger mt-2">{{ __('cart.delete') }}</button>
                             </form>
                         </div>
-
                     @endforeach
                 </div>
 
                 <div class="cart-summary mt-4">
                     <h4 class="text-end" style="font-size: 1.6rem; font-weight: bold; color: #333;">
-                        Итоговая стоимость:
+                        {{ __('cart.totalCost') }}:
                         <strong>{{ number_format($cart->items->sum(fn($item) => $item->dish->price * $item->quantity), 2) }} BYN</strong>
                     </h4>
                     <div class="text-end mt-3">
                         <form action="{{ route('orders.placingOrder') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-primary btn-lg" style="font-size: 1.1rem;">Оформить заказ</button>
+                            <button type="submit" class="btn btn-primary btn-lg" style="font-size: 1.1rem;">
+                                {{ __('cart.placeOrder') }}
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -61,6 +67,7 @@
         @endif
     </div>
 @endsection
+
 
 @section('styles')
     <style>
