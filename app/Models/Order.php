@@ -43,6 +43,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['client_id', 'total_price', 'status', 'name', 'phone_number', 'time', 'adress', 'comment', 'payment'];
     protected $casts = [
         'status' => OrderStatusEnum::class,

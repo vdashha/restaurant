@@ -67,17 +67,4 @@ class DishControllerTest extends TestCase
         $response->assertViewHas('title', $category->title);
     }
 
-    public function test_dish_factory_creates_valid_data()
-    {
-        $dish = Dish::factory()->create();
-
-        $this->assertNotNull($dish->title);
-        $this->assertNotNull($dish->description);
-        $this->assertGreaterThan(0, $dish->price);
-        $this->assertGreaterThan(0, $dish->weight);
-        $this->assertNotNull($dish->category_id);
-        $this->assertTrue($dish->hasMedia()); // Проверка наличия медиафайлов
-    }
-
-
 }

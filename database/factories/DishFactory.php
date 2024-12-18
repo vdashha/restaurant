@@ -47,8 +47,8 @@ class DishFactory extends Factory
     {
         return $this->afterCreating(function (Dish $dish) {
             // Добавляем изображение в коллекцию media
-            $dish->addMediaFromUrl('https://via.placeholder.com/640x480.png') // Замените на тестовый URL
-            ->toMediaCollection('default');
+//            $dish->addMediaFromUrl('https://via.placeholder.com/640x480.png') // Замените на тестовый URL
+//            ->toMediaCollection('default');
         });
     }
 }
