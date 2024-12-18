@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DishController;
@@ -18,34 +20,54 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [HomeController::class, 'getInformationForHomePage'])->name('home');
 
-Route::get('/', [PromotionController::class, 'readPromtions'])->name('home');
+Route::prefix('/clients')
+    ->controller(ClientController::class)
+    ->group(function () {
+        Route::get('/login', 'showLoginForm')->name('client.login.form');
+        Route::post('/login', 'login')->name('client.login');
 
-Route::get('/user/login', [UserController::class, 'showLoginForm'])->name('user.login');
-Route::get('/user', [UserController::class, 'login'])->name('login');
+        Route::get('/signup', 'showRegistrationForm')->name('client.signup');
+        Route::post('/', 'store')->name('client.store');
 
-Route::get('/user/signup', [UserController::class, 'showRegistrationForm'])->name('user.signup');
-Route::post('/user', [UserController::class, 'store'])->name('user.store');
+        Route::middleware(['auth:client'])->group(function () {
+            Route::get('/profile', 'showProfile')->name('profile.show');
+            Route::put('/profile', 'updateProfile')->name('profile.update');
 
-Route::get('/user/profile', [UserController::class, 'showProfile'])->name('profile.show');
-Route::put('/user/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+            Route::post('/logout', 'logout')->name('client.logout');
+        });
+    });
 
-Route::post('/user/logout', function () {
-    Auth::logout();
-    return redirect()->route('home'); // Перенаправление на главную страницу после выхода
-})->name('user.logout');
-
-Route::get('/categories', [CategoryController::class, 'showCategories'])->name('categories');
-Route::get('/categories/{category}', [CategoryController::class, 'showSubCategories'])->name('subcategories');
+Route::prefix('/categories')
+    ->controller(CategoryController::class)
+    ->group(function () {
+        Route::get('/', 'showCategories')->name('categories');
+        Route::get('/{category}', 'showCategories')->name('subcategories');
+    });
 
 Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('dishes');
+Route::get('/promotions', [PromotionController::class, 'readPromotions'])->name('promotions');
 
-Route::get('/promotions', [PromotionController::class, 'readPromtions'])->name('promotions');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::get('/cart/add/{dish_id}', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::middleware('auth:client')->group(function () {
+    Route::prefix('/cart')
+        ->controller(CartController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('cart.index');
+            Route::get('/add/{dish_id}', 'add')->name('cart.add');
+            Route::post('/update', 'update')->name('cart.update');
+            Route::delete('/remove', 'remove')->name('cart.remove');
+        });
 });
 
+Route::middleware(['auth:client'])->group(function () {
+    Route::prefix('/orders')
+        ->controller(OrderController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('order.index');
+            Route::post('/', 'store')->name('orders.store');
+            Route::post('/placingOrder', 'placingOrder')->name('orders.placingOrder');
+            Route::get('/{order}', 'show')->name('orders.show');
+            Route::post('/{order}/remove', 'remove')->name('orders.remove');
+        });
+});

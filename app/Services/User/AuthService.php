@@ -2,27 +2,36 @@
 
 namespace App\Services\User;
 
-use App\Models\User;
+use App\Models\Client;
+use App\Repositories\ClientRepository;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
+
+    public function __construct(private ClientRepository $clientRepository)
+    {
+
+    }
+
     public function save_url()
     {
         $previousUrl = url()->previous();
-        if ($previousUrl !== route('user.login') && $previousUrl !== route('user.signup')) {
+        if ($previousUrl !== route('client.login.form') && $previousUrl !== route('client.signup')) {
             session()->put('url.intended', $previousUrl);
         }
     }
 
-    public function handle($request)
+    public function handle(Request $request)
     {
-        return Auth::attempt($request->only('email', 'password'));
+        return Auth::guard('client')->attempt($request->only('email', 'password'));
     }
 
-    public function registration($request)
+    public function registration(Request $request)
     {
-        $user = User::create($request->all());
-        Auth::login($user);
+        $user = $this->clientRepository->create($request->all());
+        Auth::guard('client')->login($user);
     }
 }

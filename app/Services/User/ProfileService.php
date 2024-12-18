@@ -8,7 +8,7 @@ class ProfileService
 {
     public function update($request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('client')->user();
         $user->update($request->all());
         return $user;
     }
