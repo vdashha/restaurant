@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="container my-5">
-        <h1 class="text-center mb-4" style="font-family: 'Poppins', sans-serif; font-size: 36px; color: #2c3e50;">Ваш заказ</h1>
+        <h1 class="text-center mb-4" style="font-family: 'Poppins', sans-serif; font-size: 36px; color: #2c3e50;">{{__('order.order')}}</h1>
 
         <!-- Детали заказа -->
         <div class="order-details mb-4">
-            <p><strong>Номер заказа:</strong> <span class="text-muted">{{ $order->id }}</span></p>
-            <p><strong>Дата:</strong> <span class="text-muted">{{ $order->created_at->format('d.m.Y H:i') }}</span></p>
-            <p><strong>Статус:</strong> <span class="badge bg-info">{{ $order->status->getLabel() }}</span></p>
-            <p><strong>Адрес:</strong> <span class="text-muted">{{ $order->restaurant->address }}</span></p>
+            <p><strong>{{__('order.orderNumber')}}</strong> <span class="text-muted">{{ $order->id }}</span></p>
+            <p><strong>{{__('order.orderDate')}}</strong> <span class="text-muted">{{ $order->created_at->format('d.m.Y H:i') }}</span></p>
+            <p><strong>{{__('order.orderStatus')}}</strong> <span class="badge bg-info">{{ $order->status->getLabel() }}</span></p>
+            <p><strong>{{__('order.orderAddress')}}</strong> <span class="text-muted">{{ $order->restaurant->address }}</span></p>
         </div>
 
         <!-- Таблица с деталями блюд -->
@@ -17,10 +17,10 @@
             <table class="table table-bordered table-hover shadow-lg rounded" style="background-color: #fafafa;">
                 <thead class="thead-light">
                 <tr style="background-color: #f1f1f1;">
-                    <th>Блюдо</th>
-                    <th>Количество</th>
-                    <th>Цена</th>
-                    <th>Итог</th>
+                    <th>{{__('order.dish')}}</th>
+                    <th>{{__('order.quantity')}}</th>
+                    <th>{{__('order.price')}}</th>
+                    <th>{{__('order.total')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,7 +39,7 @@
         <!-- Общая стоимость -->
         <div class="d-flex justify-content-between mt-4">
             <h4 class="text-end" style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.5rem; color: #333;">
-                Общая стоимость: <strong>{{ number_format($order->total_price, 2) }} BYN</strong>
+                {{__('order.totalPrice')}}<strong>{{ number_format($order->total_price, 2) }} BYN</strong>
             </h4>
         </div>
     </div>
