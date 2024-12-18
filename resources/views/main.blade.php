@@ -12,15 +12,15 @@
             align-items: center;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
         <div>
-            <h1 style="font-family: 'Poppins', sans-serif;">Добро пожаловать в наш ресторан!</h1>
-            <p class="lead" style="font-family: 'Poppins', sans-serif;">Наслаждайтесь лучшими блюдами и атмосферой</p>
-            <a href="{{ route('categories') }}" class="btn btn-light btn-lg shadow-sm">Посмотреть меню</a>
+            <h1 style="font-family: 'Poppins', sans-serif;">{{__('home.welcome')}}</h1>
+            <p class="lead" style="font-family: 'Poppins', sans-serif;">{{__('home.atmosphere')}}</p>
+            <a href="{{ route('categories') }}" class="btn btn-light btn-lg shadow-sm">{{__('home.menu')}}</a>
         </div>
     </header>
 
     <!-- Специальные предложения -->
     <div class="container my-5">
-        <h2 class="text-center" style="font-family: 'Poppins', sans-serif; color: #333;">Специальные предложения</h2>
+        <h2 class="text-center" style="font-family: 'Poppins', sans-serif; color: #333;">{{__('home.offers')}}</h2>
         <div class="row justify-content-center">
             @foreach($promotions as $offer)
                 <div class="col-md-4 mb-4">
@@ -32,11 +32,11 @@
                             <p class="card-text" style="font-family: 'Poppins', sans-serif; color: #555;">{{ $offer->description }}</p>
                             <p class="card-text" style="font-family: 'Poppins', sans-serif;">
                                 <small class="text-muted">
-                                    Срок действия: {{ \Carbon\Carbon::parse($offer->start_date)->format('d.m.Y') }} - {{ \Carbon\Carbon::parse($offer->end_date)->format('d.m.Y') }}
+                                    {{__('home.validity_period')}} {{ \Carbon\Carbon::parse($offer->start_date)->format('d.m.Y') }} - {{ \Carbon\Carbon::parse($offer->end_date)->format('d.m.Y') }}
                                 </small>
                             </p>
                             <div class="mt-auto">
-                                <a href="{{ route('home') }}" class="btn btn-primary shadow-sm">Заказать</a>
+                                <a href="{{ route('home') }}" class="btn btn-primary shadow-sm">{{__('home.order')}}</a>
                             </div>
                         </div>
                     </div>
@@ -48,11 +48,8 @@
     <!-- О нас с фоном на всю ширину -->
     <div class="container-fluid" style="background-color: #333; padding: 20px 0;">
         <div class="container">
-            <h2 class="text-center" style="font-family: 'Poppins', sans-serif; color: #fff;">О нас</h2>
-            <p class="text-center" style="font-family: 'Poppins', sans-serif; color: #f0f0f0; line-height: 1.6;">
-                Мы - ресторан, который предлагает вам лучшие блюда, приготовленные с любовью. Наша команда профессионалов
-                всегда готова сделать ваше пребывание у нас незабываемым. Адреса наших ресторанов:
-            </p>
+            <h2 class="text-center" style="font-family: 'Poppins', sans-serif; color: #fff;">{{__('home.about')}}</h2>
+            <p class="text-center" style="font-family: 'Poppins', sans-serif; color: #f0f0f0; line-height: 1.6;">{{__('home.about_text')}}</p>
 
             <ul class="list-unstyled text-center" style="font-family: 'Poppins', sans-serif; color: #f0f0f0;">
                 @foreach($restaurants as $restaurant)
