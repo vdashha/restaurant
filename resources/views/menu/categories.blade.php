@@ -8,7 +8,7 @@
                 <div class="col-md-4 mb-4">
                     <a href="{{ route('subcategories', $category->id) }}" class="text-decoration-none">
                         <div class="card h-100 position-relative shadow-lg border-0 rounded-3 overflow-hidden">
-                            <img src="{{ asset($category->image->getUrl()) }}" class="card-img-top" alt="{{ $category->title }}"
+                            <img src="{{ asset($category->image?->getUrl()) }}" class="card-img-top" alt="{{ $category->title }}"
                                  style="height: 250px; object-fit: cover; transition: transform 0.3s ease;">
                             <div class="card-body text-center position-absolute bottom-0 start-50 translate-middle-x p-3">
                                 <h5 class="card-title text-white" style="font-family: 'Poppins', sans-serif; font-weight: bold;">
