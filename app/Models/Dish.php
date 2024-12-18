@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -51,6 +51,8 @@ class Dish extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection(static::MEDIA_COLLECTION_IMAGE);
+        $this->addMediaCollection(static::MEDIA_COLLECTION_IMAGE)
+        ->singleFile();
     }
+
 }

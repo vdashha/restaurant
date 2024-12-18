@@ -3,13 +3,18 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Dish;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Dish>
- */
 class DishFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Dish::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,13 +22,33 @@ class DishFactory extends Factory
      */
     public function definition(): array
     {
-        $existingCategoryIds = Category::pluck('id')->toArray(); // Получаем массив идентификаторов существующих категорий
+        // Убедимся, что хотя бы одна категория существует
+        if (Category::count() === 0) {
+            Category::factory()->create();
+        }
+
+        $existingCategoryIds = Category::pluck('id')->toArray();
+
         return [
-            'title' => fake()->sentence(),
-            'description' => fake()->paragraph(),
-            'price' => fake()->randomFloat(2, 0, 999999.99), // 2 знака после запятой, максимум 8 цифр
-            'weight' => fake()->numberBetween(1, 1000), // Вес от 1 до 1000
-            'category_id' => fake()->randomElement($existingCategoryIds),
+            'title' => $this->faker->sentence(),
+            'description' => $this->faker->paragraph(),
+            'price' => $this->faker->randomFloat(2, 1, 9999.99),
+            'weight' => $this->faker->numberBetween(50, 1000),
+            'category_id' => $this->faker->randomElement($existingCategoryIds),
         ];
+    }
+
+    /**
+     * Configure the factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Dish $dish) {
+            // Добавляем изображение в коллекцию media
+            $dish->addMediaFromUrl('https://via.placeholder.com/640x480.png') // Замените на тестовый URL
+            ->toMediaCollection('default');
+        });
     }
 }
