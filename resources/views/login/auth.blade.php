@@ -34,3 +34,44 @@
         </div>
     </div>
 @endsection
+
+@section('styles')
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .form-control {
+            border-radius: 8px;
+            font-size: 14px;
+            padding: 10px;
+        }
+        .btn-warning {
+            background-color: #f39c12;
+            border-color: #f39c12;
+            transition: background-color 0.3s ease;
+        }
+        .btn-warning:hover {
+            background-color: #e67e22;
+            border-color: #e67e22;
+        }
+        .text-danger {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+@endsection
