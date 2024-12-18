@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PromotionController;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'getInformationForHomePage'])->name('home');
+Route::get('/greeting/{locale}', [LocalizationController::class, 'locale'])->name('changeLanguage');
 
 Route::prefix('/clients')
     ->controller(ClientController::class)

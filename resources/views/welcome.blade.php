@@ -207,14 +207,14 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a href="{{ route('categories') }}" class="nav-link px-2 text-secondary">Menu</a></li>
+                    <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">{{__('main.home')}}</a></li>
+                    <li><a href="{{ route('categories') }}" class="nav-link px-2 text-secondary">{{__('main.menu')}}</a></li>
                     <li>
                         @auth('client')
-                            <a href="{{ route('cart.index') }}" class="nav-link px-2 text-secondary">Cart</a>
+                            <a href="{{ route('cart.index') }}" class="nav-link px-2 text-secondary">{{__('main.cast')}}</a>
                         @else
                             <a href="{{ route('client.login.form') }}" class="nav-link px-2 text-secondary"
-                               onclick="event.preventDefault(); this.closest('li').querySelector('form').submit();">Cart</a>
+                               onclick="event.preventDefault(); this.closest('li').querySelector('form').submit();">{{__('main.cast')}}</a>
                             <form action="{{ route('client.login.form') }}" method="GET" style="display: none;">
                                 @csrf
                             </form>
@@ -222,10 +222,10 @@
                     </li>
                     <li>
                         @auth('client')
-                            <a href="{{ route('order.index') }}" class="nav-link px-2 text-secondary">Order</a>
+                            <a href="{{ route('order.index') }}" class="nav-link px-2 text-secondary">{{__('main.orders')}}</a>
                         @else
                             <a href="{{ route('client.login.form') }}" class="nav-link px-2 text-secondary"
-                               onclick="event.preventDefault(); this.closest('li').querySelector('form').submit();">Order</a>
+                               onclick="event.preventDefault(); this.closest('li').querySelector('form').submit();">{{__('main.orders')}}</a>
                             <form action="{{ route('client.login.form') }}" method="GET" style="display: none;">
                                 @csrf
                             </form>
@@ -235,14 +235,14 @@
 
                 <div class="text-end">
                     @auth('client')
-                        <a href="{{ route('profile.show') }}" class="btn btn-outline-light me-2">Profile</a>
+                        <a href="{{ route('profile.show') }}" class="btn btn-outline-light me-2">{{__('main.profile')}}</a>
                         <form action="{{ route('client.logout') }}" method="POST" style="display:inline;">
                             @csrf
-                            <button type="submit" class="btn btn-warning me-3">Logout</button>
+                            <button type="submit" class="btn btn-warning me-3">{{__('main.logout')}}</button>
                         </form>
                     @else
-                        <a href="{{ route('client.login.form') }}" class="btn btn-outline-light me-2">Login</a>
-                        <a href="{{ route('client.signup') }}" class="btn btn-warning me-3">Sign-up</a>
+                        <a href="{{ route('client.login.form') }}" class="btn btn-outline-light me-2">{{__('main.login')}}</a>
+                        <a href="{{ route('client.signup') }}" class="btn btn-warning me-3">{{__('main.sing_up')}}</a>
                         <!-- Добавили отступ справа -->
                     @endauth
                 </div>
@@ -254,13 +254,15 @@
                         <i class="bi bi-globe"></i> <!-- Globe icon from Bootstrap Icons -->
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                        <li><a class="dropdown-item" href="#">En</a></li>
-                        <li><a class="dropdown-item" href="#">Ru</a></li>
+{{--                        <li><a class="dropdown-item" href="{{ route('changeLanguage' , 'en') }}">En</a></li>--}}
+{{--                        <li><a class="dropdown-item" href="{{ route('changeLanguage', 'ru' )}}">Ru</a></li>--}}
+                        <li><a class="dropdown-item" href="{{ route('changeLanguage' , ['locale' => \App\Enums\LanguageEnum::ENGLISH->value]) }}">{{\App\Enums\LanguageEnum::ENGLISH->getLabel()}}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('changeLanguage', ['locale' => \App\Enums\LanguageEnum::RUSSIAN->value])}}">{{\App\Enums\LanguageEnum::RUSSIAN->getLabel()}}</a></li>
+
                     </ul>
                 </div>
 
             </div>
-        </div>
         </div>
     </header>
 </main>

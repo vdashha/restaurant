@@ -12,8 +12,8 @@
                         <div class="card-body text-center">
                             <h5 class="card-title" style="font-size: 22px; font-weight: bold; color: #333;">{{ $dish->title }}</h5>
                             <p class="card-text" style="font-size: 14px; color: #555;">{{ $dish->description }} / {{ $dish->weight }}</p>
-                            <p class="card-text" style="font-size: 16px; color: #f39c12;"><strong>Цена: {{ number_format($dish->price, 2) }} Br</strong></p>
-                            <a href="{{ route('cart.add', $dish->id ) }}" class="btn btn-warning btn-lg w-100 mt-3" style="font-size: 16px;">В корзину</a>
+                            <p class="card-text" style="font-size: 16px; color: #f39c12;"><strong>{{__('dish.price')}}: {{ number_format($dish->price, 2) }} Br</strong></p>
+                            <a href="{{ route('cart.add', $dish->id ) }}" class="btn btn-warning btn-lg w-100 mt-3" style="font-size: 16px;">{{__('dish.inCart')}}</a>
                         </div>
                     </div>
                 </div>

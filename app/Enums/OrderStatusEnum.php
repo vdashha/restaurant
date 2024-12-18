@@ -2,13 +2,13 @@
 namespace App\Enums;
 
 
-use App\Enums\Traits\EnumOptionsTrait;
+use App\Enums\Traits\EnumHelperTrait;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
 enum OrderStatusEnum: string implements HasColor, HasLabel
 {
-    use EnumOptionsTrait;
+    use EnumHelperTrait;
     case NEW = 'new';
     case PROCESS = 'process';
     case PENDING_DELIVERY = 'pending_delivery';
