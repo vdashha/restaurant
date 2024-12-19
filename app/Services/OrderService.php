@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Contracts\RepositoryInterface;
 use App\Enums\OrderStatusEnum;
+use App\Events\OrderCreated;
 use App\Http\Requests\OrderRequest;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -60,7 +61,8 @@ class OrderService
         $this->orderRepository->createItems($order, $orderItemsData);
         $this->cartRepository->delete($cart->id);
 
-        Log::info('Order created', $data);
+        event(new OrderCreated($order));
+
         return $order;
     }
 
