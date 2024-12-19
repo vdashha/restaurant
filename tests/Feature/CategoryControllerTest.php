@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     public function test_it_displays_root_categories(): void
     {

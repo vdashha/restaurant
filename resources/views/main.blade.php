@@ -36,7 +36,7 @@
                                 </small>
                             </p>
                             <div class="mt-auto">
-                                <a href="{{ route('home') }}" class="btn btn-primary shadow-sm">{{__('home.order')}}</a>
+                                <a href="{{ route('dishes', '31')}}" class="btn btn-primary shadow-sm">{{__('home.order')}}</a>
                             </div>
                         </div>
                     </div>

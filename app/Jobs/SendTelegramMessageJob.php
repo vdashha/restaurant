@@ -33,9 +33,9 @@ class SendTelegramMessageJob implements ShouldQueue
 */
     public function handle(Telegram $telegram): void
     {
-        if (app()->isLocal()) {
+        /*if (app()->isLocal()) {
             return;
-        }
+        }*/
 
         $telegram->sendMessageToChat($this->message, $this->chatId, $this->topicId, $this->parseMode);
     }

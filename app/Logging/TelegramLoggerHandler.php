@@ -46,7 +46,7 @@ class TelegramLoggerHandler extends AbstractProcessingHandler
 */
     protected function write(array|\Monolog\LogRecord $record): void
     {
-        if ($this->ignoreError($record) || app()->isLocal()) {
+        if ($this->ignoreError($record)) {
             return;
         }
 

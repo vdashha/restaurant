@@ -31,12 +31,12 @@ class OrderCreatedTelegramNotificationListener
 
     private function createMessage(Order $order): TelegramMessage
     {
-        $message = '*Заказ #*' . $order->id . PHP_EOL ;
-        $message .= '*Сумма #*' . $order->total_price . PHP_EOL ;
-        $message .= '*Создан:* ' . $order->created_at->format('Y-m-d H:i') . PHP_EOL;
-        $message .= '*Номер телефона:* ' . $order->phone_number . PHP_EOL;
-        $message .= '*Адрес:* ' . $order->adress . PHP_EOL;
-        $message .= '*Комментарий:* ' . $order->comment . PHP_EOL;
+        $message = '*Заказ: №*' . $order->id . PHP_EOL ;
+        $message .= '*Сумма: ' . $order->total_price . ' BYN*' . PHP_EOL ;
+        $message .= '*Создан: * ' . $order->created_at->format('Y-m-d H:i') . PHP_EOL;
+        $message .= '*Номер телефона: * ' . $order->phone_number . PHP_EOL;
+        $message .= '*Адрес: * ' . $order->adress . PHP_EOL;
+        $message .= '*Комментарий: * ' . $order->comment . PHP_EOL;
 
         return new TelegramMessage($message);
     }

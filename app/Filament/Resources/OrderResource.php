@@ -72,6 +72,7 @@ class OrderResource extends Resource
             ]);
     }
 
+
     public static function table(Table $table): Table
     {
         return $table
