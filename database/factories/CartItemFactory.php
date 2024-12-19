@@ -19,8 +19,9 @@ class CartItemFactory extends Factory
      */
     public function definition(): array
     {
-        $cartId = Cart::find(all())->id->toArray();
-        $dishId = Dish::pluck('id')->toArray();
+        $cartId = Cart::factory()->create()->id;
+        $dishId = Dish::factory()->create()->id;
+
         return [
             'cart_id' => $cartId,
             'dish_id' => $dishId,

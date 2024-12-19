@@ -18,7 +18,14 @@ class CategoryController extends BaseController
 
     }
 
-    public function showCategories(?int $categoryId = null)
+    public function showCategories()
+    {
+        [$categories, $title] = $this->categoryService->showCategories();
+
+        return view('menu.categories', compact('categories', 'title'));
+    }
+
+    public function showCategoriesById(int $categoryId)
     {
         [$categories, $title] = $this->categoryService->showCategories($categoryId);
 

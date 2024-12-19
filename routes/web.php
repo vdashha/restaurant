@@ -45,7 +45,7 @@ Route::prefix('/categories')
     ->controller(CategoryController::class)
     ->group(function () {
         Route::get('/', 'showCategories')->name('categories');
-        Route::get('/{category}', 'showCategories')->name('subcategories');
+        Route::get('/{category}', 'showCategoriesById')->name('subcategories');
     });
 
 Route::get('/{category}/dishes', [DishController::class, 'showDishes'])->name('dishes');

@@ -7,6 +7,7 @@ use App\Repositories\ClientRepository;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthService
 {
@@ -32,6 +33,7 @@ class AuthService
     public function registration(Request $request)
     {
         $user = $this->clientRepository->create($request->all());
+        Log::info('User register successfully', ['user_id' => $user->id]);
         Auth::guard('client')->login($user);
     }
 }
