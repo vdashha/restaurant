@@ -32,13 +32,13 @@ class OrderController extends Controller
         try {
             $order = $orderService->addOrder($orderRequest);
         } catch (\Exception $exception) {
-            return redirect()->route('orders.orderForm')->with('error', $exception->getMessage());
+            return redirect()->back()->with('error', $exception->getMessage());
         }
 
         return redirect()->route('orders.show', $order)->with('success', 'Ваш заказ успешно оформлен!');
     }
 
-    public function show(int $id)
+    public function show($id)
     {
         $order = $this->orderRepository->find($id);
         return view('orders.order', compact('order'));
