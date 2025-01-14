@@ -30,8 +30,8 @@ class DishResource extends Resource
             SpatieMediaLibraryFileUpload::make('image')
                 ->image()
                 ->label('Изображение')
-                ->collection('image')
-                ->required(),
+                ->collection('image'),
+                //->required(),
 
             Forms\Components\TextInput::make('title')
                 ->label('Название')

@@ -9,7 +9,8 @@
                 {{__('order.no_orders')}}
             </div>
         @else
-            <table class="table table-striped" style="background-color: #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden;">
+            <table class="table table-striped"
+                   style="background-color: #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden;">
                 <thead>
                 <tr>
                     <th>{{__('order.order_number')}}</th>
@@ -43,12 +44,15 @@
                             @endif
                         </td>
                         <td> <!-- Добавьте класс text-center здесь -->
-                            <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-primary">{{__('order.view')}}</a>
+                            <a href="{{ route('orders.show', $order->id) }}"
+                               class="btn btn-sm btn-primary">{{__('order.view')}}</a>
                             @if (!$order->status->isCompleted() && !$order->status->isFailed())
-                                <form action="{{ route('orders.remove', $order->id) }}" method="POST" class="d-inline-block">
+                                <form action="{{ route('orders.remove', $order->id) }}" method="POST"
+                                      class="d-inline-block">
                                     @csrf
                                     @method('post')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm({{__('order.confirm_cancel')}})">{{__('order.cancel')}}</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm({{__('order.confirm_cancel')}})">{{__('order.cancel')}}</button>
                                 </form>
                             @endif
                         </td>

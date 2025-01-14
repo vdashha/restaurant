@@ -68,7 +68,7 @@ Route::middleware(['auth:client'])->group(function () {
         ->group(function () {
             Route::get('/', 'index')->name('order.index');
             Route::post('/', 'store')->name('orders.store');
-            Route::get('/placingOrder', 'placingOrder')->name('orders.placingOrder');
+            Route::post('/placingOrder', 'placingOrder')->name('orders.placingOrder');
             Route::get('/{order}', 'show')->name('orders.show');
             Route::post('/{order}/remove', 'remove')->name('orders.remove');
         });

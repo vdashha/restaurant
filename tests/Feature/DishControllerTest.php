@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class DishControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     public function test_it_displays_dishes_for_category(): void
     {

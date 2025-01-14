@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 class CartTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     protected function setUp(): void
     {
