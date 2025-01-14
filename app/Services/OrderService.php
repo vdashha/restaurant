@@ -6,6 +6,7 @@ use App\Contracts\RepositoryInterface;
 use App\Enums\OrderStatusEnum;
 use App\Events\OrderCreated;
 use App\Http\Requests\OrderRequest;
+use App\Mail\CreateOrder;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
@@ -13,6 +14,7 @@ use App\Repositories\CartRepository;
 use App\Repositories\OrderRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OrderService
 {
@@ -62,6 +64,7 @@ class OrderService
         $this->cartRepository->delete($cart->id);
 
         event(new OrderCreated($order));
+        Mail::to(Auth::guard('client')->user()->email)->send(new CreateOrder($order));
 
         return $order;
     }
