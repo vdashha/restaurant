@@ -14,6 +14,7 @@ return [
     'placeholderName' => 'Введите ваше имя',
     'placeholderPhone' => '+375 (__) ___-__-__',
     'placeholderComment' => 'Введите ваш комментарий (необязательно)',
+    'submitOrder' => 'Оформить заказ',
 
 
     'order' => 'Ваш заказ',
