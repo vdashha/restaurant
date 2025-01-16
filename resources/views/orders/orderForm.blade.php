@@ -20,21 +20,44 @@
                        pattern="\+375 \(\d{2}\) \d{3}-\d{2}-\d{2}" required>
             </div>
 
-            <!-- Поле для выбора времени готовности -->
+            <!-- Выбор доставки или самовывоза -->
             <div class="mb-3">
-                <label for="ready_time" class="form-label">{{__('order.readyTime')}}</label>
-                <input type="time" class="form-control" id="ready_time" name="ready_time" required>
+                <label class="form-label">{{__('order.selectDeliveryType')}}</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="delivery_method" id="pickup" value="pickup" checked>
+                    <label class="form-check-label" for="pickup">
+                        {{__('order.pickup')}}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="delivery_method" id="delivery" value="delivery">
+                    <label class="form-check-label" for="delivery">
+                        {{__('order.delivery')}}
+                    </label>
+                </div>
             </div>
 
             <!-- Поле для выбора ресторана -->
-            <div class="mb-3">
+            <div class="mb-3" id="restaurant-field">
                 <label for="restaurant" class="form-label">{{__('order.selectRestaurant')}}</label>
-                <select class="form-select" id="restaurant" name="restaurant" required>
+                <select class="form-select" id="restaurant" name="restaurant">
                     <option value="" selected disabled>{{__('order.selectRest')}}</option>
                     @foreach($restaurants as $restaurant)
                         <option value="{{ $restaurant->id }}">{{ $restaurant->address }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <!-- Поле для ввода адреса доставки -->
+            <div class="mb-3 d-none" id="delivery-address-field">
+                <label for="delivery_address" class="form-label">{{__('order.deliveryAddress')}}</label>
+                <input type="text" class="form-control" id="delivery_address" name="delivery_address" placeholder="{{__('order.placeholderDeliveryAddress')}}">
+            </div>
+
+            <!-- Поле для выбора времени готовности -->
+            <div class="mb-3">
+                <label for="ready_time" class="form-label">{{__('order.readyTime')}}</label>
+                <input type="time" class="form-control" id="ready_time" name="ready_time" required>
             </div>
 
             <!-- Поле для выбора оплаты -->
@@ -47,8 +70,7 @@
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="payment_method" id="payment_cash" value="cash"
-                           checked>
+                    <input class="form-check-input" type="radio" name="payment_method" id="payment_cash" value="cash" checked>
                     <label class="form-check-label" for="payment_cash">
                         {{__('order.paymentCash')}}
                     </label>
@@ -58,8 +80,7 @@
             <!-- Поле для ввода комментария -->
             <div class="mb-3">
                 <label for="comment" class="form-label">{{__('order.comment')}}</label>
-                <textarea class="form-control" id="comment" name="comment" rows="3"
-                          placeholder="{{__('order.placeholderComment')}}"></textarea>
+                <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="{{__('order.placeholderComment')}}"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary w-100" style="font-size: 18px; background-color: #f39c12; border-color: #f39c12;">{{__('order.submitOrder')}}</button>
@@ -82,37 +103,58 @@
                 }
                 phoneInput.value = value;
             });
-
+            const deliveryMethodInputs = document.querySelectorAll('input[name="delivery_method"]');
+            const restaurantField = document.getElementById('restaurant-field');
+            const deliveryAddressField = document.getElementById('delivery-address-field');
             const readyTimeInput = document.getElementById('ready_time');
 
-            // Получаем текущее время
-            const now = new Date();
+            function updateFields() {
+                const selectedMethod = document.querySelector('input[name="delivery_method"]:checked').value;
 
-            // Прибавляем 30 минут
-            now.setMinutes(now.getMinutes() + 30);
+                if (selectedMethod === 'pickup') {
+                    restaurantField.classList.remove('d-none');
+                    deliveryAddressField.classList.add('d-none');
 
-            // Форматируем время для установки в поле (часы и минуты)
-            const formattedTime = now.toLocaleTimeString('en-GB', {
-                hour: '2-digit',
-                minute: '2-digit'
+                    const now = new Date();
+                    // Прибавляем 30 минут
+                    now.setMinutes(now.getMinutes() + 30);
+                    // Форматируем время для установки в поле (часы и минуты)
+                    const formattedTime = now.toLocaleTimeString('en-GB', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    // Устанавливаем значение по умолчанию
+                    readyTimeInput.value = formattedTime;
+                } else {
+                    restaurantField.classList.add('d-none');
+                    deliveryAddressField.classList.remove('d-none');
+
+                    // Увеличиваем время готовности на 20 минут для доставки
+                    const now = new Date();
+                    // Прибавляем 30 минут
+                    now.setMinutes(now.getMinutes() + 60);
+                    // Форматируем время для установки в поле (часы и минуты)
+                    const formattedTime = now.toLocaleTimeString('en-GB', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    // Устанавливаем значение по умолчанию
+                    readyTimeInput.value = formattedTime;
+                }
+            }
+
+            deliveryMethodInputs.forEach(input => {
+                input.addEventListener('change', updateFields);
             });
 
-            // Устанавливаем значение по умолчанию
-            readyTimeInput.value = formattedTime;
-
-            // Устанавливаем минимальное значение
-            readyTimeInput.setAttribute('min', formattedTime);
-
-            // Устанавливаем максимальное значение (например, 21:40)
-            const maxTime = "21:40";
-            readyTimeInput.setAttribute('max', maxTime);
+            // Установка значений по умолчанию
+            updateFields();
         });
     </script>
 @endsection
 
 @section('styles')
     <style>
-        /* Общее оформление формы */
         .container {
             padding: 40px;
             background-color: #f9f9f9;
@@ -120,7 +162,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Оформление заголовка */
         h1 {
             font-size: 36px;
             font-weight: bold;
@@ -128,7 +169,6 @@
             text-align: center;
         }
 
-        /* Оформление кнопки */
         .btn-primary {
             background-color: #f39c12;
             border-color: #f39c12;
@@ -141,7 +181,6 @@
             transform: scale(1.05);
         }
 
-        /* Оформление полей формы */
         .form-label {
             font-size: 16px;
             font-weight: 600;
@@ -166,6 +205,10 @@
 
         .form-check-input {
             margin-right: 10px;
+        }
+
+        .d-none {
+            display: none;
         }
     </style>
 @endsection

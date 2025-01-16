@@ -11,10 +11,15 @@ return [
     'paymentCard' => 'Payment by card',
     'paymentCash' => 'Payment in cash',
     'comment' => 'Comment to order',
+    'selectDeliveryType' => 'Select a delivery type',
+    'delivery' => 'Delivery',
+    'pickup' => 'Pickup',
+    'deliveryAddress' => 'Delivery Address',
+    'placeholderDeliveryAddress' => 'Enter the delivery address',
     'placeholderName' => 'Enter your name',
     'placeholderPhone' => '+375 (__) ___-__-__',
     'placeholderComment' => 'Enter your comment (optional)',
-    'submitOrder' => 'Place an order',
+    'submitOrder' => 'Submit order',
 
 
     'order' => 'Your order',
