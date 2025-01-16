@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\OrderStatusEnum;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Console\Command;
@@ -28,13 +29,6 @@ class DeleteFailedOrders extends Command
      */
     public function handle(): void
     {
-        OrderItem::whereIn('order_id', function ($query) {
-                $query->select('id')
-                    ->from('orders')
-                    ->where('status', 'failed');
-            })->delete();
-
-        Order::where('status', 'failed')
-            ->delete();
+        Order::where('status', OrderStatusEnum::FAILED)->delete();
     }
 }

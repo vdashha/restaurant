@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-       $schedule->command('app:delete-failed-orders')->dailyAt('6.35');
+       $schedule->command('app:delete-failed-orders')->runInBackground()->dailyAt('6.35');
     }
 
     /**
