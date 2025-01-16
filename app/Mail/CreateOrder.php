@@ -29,7 +29,7 @@ class CreateOrder extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Create Order',
+            subject: 'Создание заказа',
         );
     }
 

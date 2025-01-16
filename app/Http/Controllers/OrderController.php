@@ -38,7 +38,7 @@ class OrderController extends Controller
         return redirect()->route('orders.show', $order)->with('success', 'Ваш заказ успешно оформлен!');
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $order = $this->orderRepository->find($id);
         return view('orders.order', compact('order'));
