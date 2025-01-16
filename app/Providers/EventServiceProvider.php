@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\ChangeOrderStatus;
 use App\Events\OrderCreated;
+use App\Listeners\ChangeOrderStatusNotification;
 use App\Listeners\OrderCreatedTelegramNotificationListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderCreated::class => [
             OrderCreatedTelegramNotificationListener::class
+        ],
+        ChangeOrderStatus::class => [
+            ChangeOrderStatusNotification::class
         ]
     ];
 

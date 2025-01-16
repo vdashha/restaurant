@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\OrderStatusEnum;
 use App\Enums\PaymentMethodEnum;
+use App\Observers\OrderObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +43,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+
+#[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
     use HasFactory;
@@ -59,6 +63,11 @@ class Order extends Model
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class, 'adress');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 }
 
