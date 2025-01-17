@@ -35,7 +35,7 @@ class OrderController extends Controller
             return redirect()->back()->with('error', $exception->getMessage());
         }
 
-        return redirect()->route('orders.show', $order)->with('success', 'Ваш заказ успешно оформлен!');
+        return redirect()->route('orders.show', $order->id)->with('success', 'Ваш заказ успешно оформлен!');
     }
 
     public function show(int $id)
