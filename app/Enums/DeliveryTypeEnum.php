@@ -15,8 +15,8 @@ enum DeliveryTypeEnum: string implements HasColor, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::DELIVERY => 'новый',
-            self::PICKUP => 'готовится',
+            self::DELIVERY => 'Доставка',
+            self::PICKUP => 'Самовывоз',
         };
     }
 

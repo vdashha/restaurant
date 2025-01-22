@@ -24,8 +24,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         OrderCreated::class => [
-            OrderCreatedTelegramNotificationListener::class,
             OrderCreatedListener::class,
+            OrderCreatedTelegramNotificationListener::class,
         ],
         ChangeOrderStatus::class => [
             ChangeOrderStatusNotification::class
