@@ -55,7 +55,7 @@
                         <strong>{{ number_format($cart->items->sum(fn($item) => $item->dish->price * $item->quantity), 2) }} BYN</strong>
                     </h4>
                     <div class="text-end mt-3">
-                        <form action="{{ route('orders.placingOrder') }}" method="POST">
+                        <form action="{{ route('orders.placingOrder') }}" method="GET">
                             @csrf
                             <button type="submit" class="btn btn-primary btn-lg" style="font-size: 1.1rem;">
                                 {{ __('cart.placeOrder') }}

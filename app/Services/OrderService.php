@@ -45,6 +45,8 @@ class OrderService
             'adress' => $orderRequest->restaurant,
             'comment' => $orderRequest->comment,
             'payment' => $orderRequest->payment_method,
+            'delivery_type' => $orderRequest->delivery_method,
+            'deliveryAddress' => $orderRequest->delivery_address,
         ];
 
         $order = $this->orderRepository->create($data);
@@ -63,7 +65,7 @@ class OrderService
         $this->orderRepository->createItems($order, $orderItemsData);
         $this->cartRepository->delete($cart->id);
 
-        event(new OrderCreated($order));
+        event(new OrderCreated($order, $orderRequest->delivery_address));
         Mail::to(Auth::guard('client')->user()->email)->send(new CreateOrder($order));
 
         return $order;

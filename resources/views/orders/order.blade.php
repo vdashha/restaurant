@@ -9,7 +9,11 @@
             <p><strong>{{__('order.orderNumber')}}</strong> <span class="text-muted">{{ $order->id }}</span></p>
             <p><strong>{{__('order.orderDate')}}</strong> <span class="text-muted">{{ $order->created_at->format('d.m.Y H:i') }}</span></p>
             <p><strong>{{__('order.orderStatus')}}</strong> <span class="badge bg-info">{{ $order->status->getLabel() }}</span></p>
-            <p><strong>{{__('order.orderAddress')}}</strong> <span class="text-muted">{{ $order->restaurant->address }}</span></p>
+            @if ($order->delivery_type->isPickup())
+                <p><strong>{{__('order.orderAddress')}}</strong> <span class="text-muted">{{ $order->restaurant->address }}</span></p>
+            @else
+                <p><strong>{{__('order.deliveryAddress')}}</strong> <span class="text-muted">{{ $order->delivery->address }}</span></p>
+            @endif
         </div>
 
         <!-- Таблица с деталями блюд -->

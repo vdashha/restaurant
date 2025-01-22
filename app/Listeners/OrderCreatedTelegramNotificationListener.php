@@ -35,7 +35,13 @@ class OrderCreatedTelegramNotificationListener
         $message .= '*Сумма: ' . $order->total_price . ' BYN*' . PHP_EOL ;
         $message .= '*Создан: * ' . $order->created_at->format('Y-m-d H:i') . PHP_EOL;
         $message .= '*Номер телефона: * ' . $order->phone_number . PHP_EOL;
-        $message .= '*Адрес: * ' . $order->adress . PHP_EOL;
+        $message .= '*Способ получения заказа: * ' . $order->delivery_type->getLabel() . PHP_EOL;
+        if ($order->delivery_type->isPickup()){
+            $message .= '*Адрес: * ' . $order->adress . PHP_EOL;
+        } else {
+            $message .= '*Адрес: * ' . $order->delivery->address . PHP_EOL;
+        }
+
         $message .= '*Комментарий: * ' . $order->comment . PHP_EOL;
 
         return new TelegramMessage($message);

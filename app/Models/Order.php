@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\DeliveryTypeEnum;
 use App\Enums\OrderStatusEnum;
 use App\Enums\PaymentMethodEnum;
 use App\Observers\OrderObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  *
@@ -43,16 +45,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-
 #[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['client_id', 'total_price', 'status', 'name', 'phone_number', 'time', 'adress', 'comment', 'payment'];
+    protected $fillable = ['client_id', 'total_price', 'status', 'name', 'phone_number', 'time', 'adress', 'comment', 'payment', 'delivery_type'];
     protected $casts = [
         'status' => OrderStatusEnum::class,
-        'payment' => PaymentMethodEnum::class
+        'payment' => PaymentMethodEnum::class,
+        'delivery_type' => DeliveryTypeEnum::class,
     ];
 
     public function items()
@@ -68,6 +70,11 @@ class Order extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function delivery(): HasOne
+    {
+        return $this->hasOne(Delivery::class);
     }
 }
 
