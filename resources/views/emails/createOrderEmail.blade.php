@@ -64,7 +64,7 @@
         @else
             <p>Он будет доставлен по адресу: <strong>{{ $order->delivery->address }}</strong> к <strong>{{ $order->time }}.</strong></p>
         @endif
-    </div>>
+    </div>
 
     <div class="footer">
         <p>С уважением,<br>Команда ресторана</p>
