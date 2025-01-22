@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\DeliveryTypeEnum;
 use App\Enums\PaymentMethodEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,7 +28,9 @@ class OrderRequest extends FormRequest
             'name' => 'required|string|max:255',
             'phone' => ['required', 'string', 'regex:/^\+375 \(\d{2}\) \d{3}-\d{2}-\d{2}$/'],
             'ready_time' => 'required|date_format:H:i',
-            'restaurant' => 'required',
+            'restaurant' => 'required_if:delivery_method, ' . DeliveryTypeEnum::PICKUP->value,
+            'delivery_address' => 'required_if:delivery_method, ' . DeliveryTypeEnum::DELIVERY->value,
+            'delivery_method' => Rule::enum(DeliveryTypeEnum::class),
             'payment_method' => Rule::enum(PaymentMethodEnum::class),
             'comment' => 'nullable|string|max:1000',
         ];

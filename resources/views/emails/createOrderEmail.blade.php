@@ -59,8 +59,13 @@
     <div class="content">
         <p>Здравствуйте, <strong>{{ $order->name }}</strong>!</p>
         <p>Ваш заказ с номером <strong>#{{ $order->id }}</strong> успешно создан.</p>
-        <p>Вы можете забрать его по адресу: <strong>{{ $order->restaurant->address }}</strong>.</p>
-    </div>
+        @if ($order->delivery_type->isPickup())
+            <p>Вы можете забрать его по адресу: <strong>{{ $order->restaurant->address }}</strong>.</p>
+        @else
+            <p>Он будет доставлен по адресу: <strong>{{ $order->delivery->address }}</strong> к <strong>{{ $order->time }}.</strong></p>
+        @endif
+    </div>>
+
     <div class="footer">
         <p>С уважением,<br>Команда ресторана</p>
         <p><a href="{{ url('/') }}">Перейти на сайт</a> для получения дополнительной информации.</p>
