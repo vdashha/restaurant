@@ -70,6 +70,6 @@ Route::middleware(['auth:client'])->group(function () {
             Route::post('/', 'store')->name('orders.store');
             Route::get('/placingOrder', 'placingOrder')->name('orders.placingOrder');
             Route::get('/{order}', 'show')->name('orders.show');
-            Route::post('/{order}/remove', 'remove')->name('orders.remove');
+            Route::delete('/{order}/remove', 'remove')->name('orders.remove');
         });
 });
