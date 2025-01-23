@@ -17,9 +17,9 @@ enum DeliveryStatusEnum: string implements HasColor, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::NEW => 'новый',
-            self::PROCESS => 'готовится',
-            self::COMPLETED => 'получен',
+            self::NEW => 'передан в доставку',
+            self::PROCESS => 'доставляется',
+            self::COMPLETED => 'доставлен',
             self::FAILED => 'отменен',
         };
     }
