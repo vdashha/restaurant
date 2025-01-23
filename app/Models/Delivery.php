@@ -19,4 +19,9 @@ class Delivery extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function courier(): BelongsTo
+    {
+        return $this->belongsTo(Courier::class);
+    }
 }
