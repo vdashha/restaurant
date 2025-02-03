@@ -6,6 +6,7 @@ use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegistrationRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\User;
+use App\Repositories\ClientRepository;
 use App\Services\User\AuthService;
 use App\Services\User\ProfileService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -19,17 +20,14 @@ class ClientController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function __construct(private readonly AuthService $authService)
+    public function __construct(private readonly AuthService $authService, private readonly ClientRepository $repository)
     {
 
     }
 
     public function showLoginForm()
     {
-        $previousUrl = url()->previous();
-        if ($previousUrl !== route('client.login.form') && $previousUrl !== route('client.signup')) {
-            session()->put('url.intended', $previousUrl);
-        }
+        $this->authService->save_url();
 
         return view('login.auth');
     }
@@ -43,14 +41,14 @@ class ClientController extends BaseController
 
     public function store(RegistrationRequest $request): RedirectResponse
     {
-        $this->authService->registration($request);
+        $this->authService->registration($request->validated(), 'client', $this->repository);
 
         return redirect()->intended('/');
     }
 
     public function login(LoginRequest $request)
     {
-        if ($this->authService->handle($request)) {
+        if ($this->authService->handle($request->validated(), 'client')) {
             return redirect()->intended('/');
         }
 

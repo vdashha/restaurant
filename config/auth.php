@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'clients',
         ],
+        'courier' => [
+            'driver' => 'sanctum',
+            'provider' => 'couriers',
+        ],
     ],
 
     /*
@@ -72,11 +76,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'couriers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Courier::class,
+        ],
     ],
 
     /*

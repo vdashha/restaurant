@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Delivery extends Model
 {
 
-    protected $fillable = ['order_id', 'address', 'time', 'status'];
+    protected $fillable = ['order_id', 'address', 'time', 'status', 'courier_id'];
 
     protected $casts = ['status' => DeliveryStatusEnum::class];
 

@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Contracts\RepositoryInterface;
 use App\Models\Client;
 use App\Repositories\ClientRepository;
 
@@ -11,12 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class AuthService
 {
-
-    public function __construct(private ClientRepository $clientRepository)
-    {
-
-    }
-
     public function save_url()
     {
         $previousUrl = url()->previous();
@@ -25,15 +20,15 @@ class AuthService
         }
     }
 
-    public function handle(Request $request)
+    public function handle(array $data, string $guard)
     {
-        return Auth::guard('client')->attempt($request->only('email', 'password'));
+        return Auth::guard($guard)->attempt($data);
     }
 
-    public function registration(Request $request)
+    public function registration(array $data, string $guard, RepositoryInterface $repository)
     {
-        $user = $this->clientRepository->create($request->all());
-        Log::info('User register successfully', ['user_id' => $user->id]);
-        Auth::guard('client')->login($user);
+        $user = $repository->create($data);
+        Log::info($guard . ' register successfully');
+        Auth::guard($guard)->login($user);
     }
 }

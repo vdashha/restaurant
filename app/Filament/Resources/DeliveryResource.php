@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\DeliveryStatusEnum;
 use App\Filament\Resources\DeliveryResource\Pages;
 use App\Filament\Resources\DeliveryResource\RelationManagers;
+use App\Models\Courier;
 use App\Models\Delivery;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
@@ -41,6 +42,10 @@ class DeliveryResource extends Resource
                     ->label('Статус доставки')
                     ->options(DeliveryStatusEnum::class)
                     ->required(),
+                Select::make('courier_id')
+                    ->options(Courier::all()->pluck('surname', 'id'))
+                    ->searchable()
+                    ->label('Курьер')
             ]);
     }
 
@@ -48,6 +53,8 @@ class DeliveryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id'),
+
                 Tables\Columns\TextColumn::make('address')
                     ->label('Адрес'),
 
@@ -57,6 +64,9 @@ class DeliveryResource extends Resource
 
                 Tables\Columns\TextColumn::make('time')
                     ->label('Время'),
+
+                Tables\Columns\TextColumn::make('courier_id')
+                    ->label('Курьер'),
             ])
             ->filters([
                 //
