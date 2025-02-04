@@ -17,7 +17,7 @@ class Courier extends Model
         'password' => 'hashed',
     ];
 
-    public function delivery(): HasMany
+    public function deliveries(): HasMany
     {
         return $this->hasMany(Delivery::class);
     }

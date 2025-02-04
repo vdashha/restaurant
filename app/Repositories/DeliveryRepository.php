@@ -10,5 +10,4 @@ class DeliveryRepository extends BaseRepository
     {
         static::setModel(Delivery::class);
     }
-
 }
