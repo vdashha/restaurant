@@ -62,8 +62,8 @@ class CourierController extends BaseController
 
     public function changeStatus(Request $request)
     {
-        $this->deliveryRepository->update($request->id, ['status' => $request->status]);
         $delivery = $this->deliveryRepository->find($request->id);
+        $delivery->update(['status' => $request->status]);
         return DeliveryResource::make($delivery);
     }
 
