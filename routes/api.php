@@ -22,5 +22,5 @@ Route::prefix('/courier')
 
     Route::middleware('auth:sanctum')->get('/logout', 'logout');
     Route::middleware('auth:sanctum')->get('/deliveries', 'getDeliveries');
-    Route::middleware('auth:sanctum')->get('/deliveries/changeStatus', 'changeStatus');
+    Route::middleware('auth:sanctum')->post('/deliveries/changeStatus', 'changeStatus');
 });

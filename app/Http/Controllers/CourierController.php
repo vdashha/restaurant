@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CourierController extends BaseController
 {
-    public function __construct(private DeliveryRepository $deliveryRepository, private readonly CourierRepository $repository)
+    public function __construct(private DeliveryRepository $deliveryRepository, private readonly CourierRepository $courierRepository)
     {
 
     }
@@ -30,7 +30,7 @@ class CourierController extends BaseController
     public function registration(RegistrationRequest $request)
     {
         /** @var Courier $courier */
-        $courier = $this->repository->create($request->validated());
+        $courier = $this->courierRepository->create($request->validated());
 
         return response()->json(['token' => $courier->createToken('api_token', expiresAt: now()->addMonth())->plainTextToken]);
     }
@@ -38,7 +38,7 @@ class CourierController extends BaseController
     public function login(LoginRequest $request)
     {
         /** @var Courier $courier */
-        $courier = $this->repository->findByPhoneNumber($request->get('phone'));
+        $courier = $this->courierRepository->findByPhoneNumber($request->get('phone'));
 
         if (Hash::check($request->get('password'), $courier->password)) {
             return response()->json(['token' => $courier->createToken('api_token', expiresAt: now()->addMonth())->plainTextToken]);
