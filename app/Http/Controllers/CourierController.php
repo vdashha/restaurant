@@ -10,6 +10,7 @@ use App\Models\Courier;
 use App\Models\User;
 use App\Repositories\CourierRepository;
 use App\Repositories\DeliveryRepository;
+use App\Services\Courier\CourierService;
 use App\Services\User\AuthService;
 use App\Services\User\ProfileService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CourierController extends BaseController
 {
-    public function __construct(private DeliveryRepository $deliveryRepository, private readonly CourierRepository $courierRepository)
+    public function __construct(private readonly CourierRepository $courierRepository, private CourierService $courierService)
     {
 
     }
@@ -49,8 +50,7 @@ class CourierController extends BaseController
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
-        Auth::guard('client')->logout();
+        $this->courierService->registration($request);
         return response()->json(['Info' => 'Успех']);
     }
 
@@ -62,8 +62,7 @@ class CourierController extends BaseController
 
     public function changeStatus(Request $request)
     {
-        $delivery = $this->deliveryRepository->find($request->id);
-        $delivery->update(['status' => $request->status]);
+        $delivery = $this->courierService->changeStatus($request);
         return DeliveryResource::make($delivery);
     }
 
