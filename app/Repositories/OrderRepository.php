@@ -18,7 +18,7 @@ class OrderRepository extends BaseRepository
         return $this->model::where('client_id', $clientId)->get();
     }
 
-    public function createItems(Order$order, array $itemsData): Collection
+    public function createItems(Order $order, array $itemsData): Collection
     {
         return $order->items()->createMany($itemsData);
     }

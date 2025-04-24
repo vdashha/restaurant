@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ChangeDeliveryStatus;
 use App\Events\ChangeOrderStatus;
 use App\Events\OrderCreated;
+use App\Listeners\ChangeDeliveryStatusListener;
 use App\Listeners\ChangeOrderStatusNotification;
 use App\Listeners\OrderCreatedListener;
 use App\Listeners\OrderCreatedTelegramNotificationListener;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ChangeOrderStatus::class => [
             ChangeOrderStatusNotification::class
+        ],
+        ChangeDeliveryStatus::class => [
+            ChangeDeliveryStatusListener::class
         ]
     ];
 

@@ -2,6 +2,7 @@
 
 namespace App\Services\Courier;
 
+use App\Events\ChangeDeliveryStatus;
 use App\Repositories\DeliveryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class CourierService
     {
         $delivery = $this->deliveryRepository->find($request->id);
         $delivery->update(['status' => $request->status]);
+        event(new ChangeDeliveryStatus($delivery));
         return $delivery;
     }
 

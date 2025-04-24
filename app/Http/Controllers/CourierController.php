@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChangeDeliveryStatus;
 use App\Http\Requests\Courier\LoginRequest;
 use App\Http\Requests\Courier\RegistrationRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\DeliveryResource;
 use App\Models\Courier;
+use App\Models\Delivery;
 use App\Models\User;
 use App\Repositories\CourierRepository;
 use App\Repositories\DeliveryRepository;
@@ -63,6 +65,7 @@ class CourierController extends BaseController
     public function changeStatus(Request $request)
     {
         $delivery = $this->courierService->changeStatus($request);
+        event(new ChangeDeliveryStatus($delivery));
         return DeliveryResource::make($delivery);
     }
 
