@@ -31,7 +31,7 @@ class DishFactory extends Factory
 
         return [
             'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph(),
+            'description' => $this->faker->text(20),
             'price' => $this->faker->randomFloat(2, 1, 9999.99),
             'weight' => $this->faker->numberBetween(50, 1000),
             'category_id' => $this->faker->randomElement($existingCategoryIds),

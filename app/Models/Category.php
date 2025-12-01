@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -22,7 +22,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read Category|null $parent
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Category> $subCategories
+ * @property \Illuminate\Database\Eloquent\Collection<int, Category> $subCategories
  * @property-read int|null $sub_categories_count
  * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
