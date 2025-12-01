@@ -21,7 +21,7 @@ services:
             - ./.docker/.db-data/mysql-files:/var/lib/mysql-files
         environment:
             - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=strojus_api
+            - MYSQL_DATABASE=restaurant_api
         ports:
             - "1212:3306"
 
@@ -34,7 +34,7 @@ services:
         volumes:
             - .:/application
             - ./.docker/php/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
-#            - ./.docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - ./.docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
     webserver:
         image: nginx:alpine

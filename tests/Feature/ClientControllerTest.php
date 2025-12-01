@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class ClientControllerTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     /**
      * Тест отображения формы авторизации.

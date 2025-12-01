@@ -14,9 +14,13 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure exif \
     && docker-php-ext-install exif
 
-#RUN pecl install xdebug \ && docker-php-ext-enable xdebug
-RUN pecl install -o -f redis \ &&  rm -rf /tmp/pear \ &&  docker-php-ext-enable redis
-RUN pecl install zip \ && docker-php-ext-enable zip
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
+RUN pecl install zip \
+    && docker-php-ext-enable zip
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
