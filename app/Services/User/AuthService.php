@@ -36,4 +36,9 @@ class AuthService
         Log::info('User register successfully', ['user_id' => $user->id]);
         Auth::guard('client')->login($user);
     }
+
+    public function logout(): void
+    {
+        Auth::guard('client')->logout();
+    }
 }

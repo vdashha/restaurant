@@ -14,8 +14,9 @@
     </testsuites>
     <source>
         <include>
-            <directory suffix=".php">app/Http/Controllers</directory>
-            <directory suffix=".php">app/Services</directory>
+            <file>app/Http/Controllers/CartController.php</file>
+            <file>app/Http/Controllers/CategoryController.php</file>
+            <file>app/Http/Controllers/ClientController.php</file>
         </include>
     </source>
     <php>

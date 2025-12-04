@@ -59,9 +59,9 @@ class ClientController extends BaseController
         ])->withInput();
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
-        Auth::guard('client')->logout();
+       $this->authService->logout();
 
         return redirect()->back();
     }

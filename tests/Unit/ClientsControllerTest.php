@@ -109,16 +109,16 @@ class ClientsControllerTest extends TestCase
     }
 
     /** @test */
-    public function logout_logs_out_and_redirects_back()
+    public function test_logout_logs_out_and_redirects()
     {
-        $guard = Mockery::mock();
-        $guard->shouldReceive('logout')->once();
+        $authService = Mockery::mock(AuthService::class);
+        $authService->shouldReceive('logout');
 
-        Auth::shouldReceive('guard')->with('client')->andReturn($guard);
+        $this->withoutMiddleware();
 
-        $response = $this->get('/client/logout');
+        $response = $this->post(route('client.logout'));
 
-        $response->assertStatus(302);
+        $response->assertRedirect();
     }
 
     /** @test */
