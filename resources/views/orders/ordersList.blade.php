@@ -17,7 +17,7 @@
                     <th>{{__('order.order_date')}}</th>
                     <th>{{__('order.total')}}</th>
                     <th>{{__('order.status')}}</th>
-                    <th>{{__('order.actions')}}</th> <!-- Добавьте класс text-center здесь -->
+                    <th>{{__('order.actions')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,14 +43,14 @@
                                 <span class="badge bg-secondary">{{ $order->status->getLabel() }}</span>
                             @endif
                         </td>
-                        <td> <!-- Добавьте класс text-center здесь -->
+                        <td>
                             <a href="{{ route('orders.show', $order->id) }}"
                                class="btn btn-sm btn-primary">{{__('order.view')}}</a>
                             @if (!$order->status->isCompleted() && !$order->status->isFailed())
                                 <form action="{{ route('orders.remove', $order->id) }}" method="POST"
                                       class="d-inline-block">
                                     @csrf
-                                    @method('post')
+                                    @method('delete')
                                     <button type="submit" class="btn btn-sm btn-danger"
                                             onclick="return confirm({{__('order.confirm_cancel')}})">{{__('order.cancel')}}</button>
                                 </form>

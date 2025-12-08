@@ -22,7 +22,7 @@ class ClientFactory extends Factory
             'name' => fake()->name(),
             'surname' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->numerify('+375 (##) ###-##-##'),
+//            'phone' => fake()->numerify('+375 (##) ###-##-##'),
             'password' => Hash::make('111'),
         ];
     }

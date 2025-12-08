@@ -3,11 +3,14 @@
 namespace App\Services\User;
 
 use App\Models\Client;
+use App\Models\User;
 use App\Repositories\ClientRepository;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 class AuthService
 {
@@ -40,5 +43,10 @@ class AuthService
     public function logout(): void
     {
         Auth::guard('client')->logout();
+    }
+
+    public function showProfile(): ?Client
+    {
+        return Auth::guard('client')->user();
     }
 }

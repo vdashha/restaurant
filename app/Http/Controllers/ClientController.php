@@ -68,9 +68,8 @@ class ClientController extends BaseController
 
     public function showProfile()
     {
-        $user = Auth::guard('client')->user();
-
-        return view('user.profile', compact('user'));
+        $user = $this->authService->showProfile();
+        return  view('user.profile', compact('user'));
     }
 
     public function updateProfile(UpdateRequest $request, ProfileService $profileService)

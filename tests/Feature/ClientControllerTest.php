@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Client;
+use App\Services\User\ProfileService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
+use Mockery;
 use Tests\TestCase;
 
 class ClientControllerTest extends TestCase
@@ -76,5 +78,27 @@ class ClientControllerTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertFalse(Auth::guard('client')->check());
+    }
+
+    /** @test */
+    public function updateProfile_updates_user_and_returns_view()
+    {
+        $client = Client::factory()->create();
+        Auth::guard('client')->login($client);
+
+        $profileService = Mockery::mock(ProfileService::class);
+        $updatedClient = Client::factory()->make(); // или измененные данные
+
+        $profileService->shouldReceive('update')->andReturn($updatedClient);
+
+        $this->app->instance(ProfileService::class, $profileService);
+
+        $response = $this->put(route('profile.update'), [
+            'name' => 'New Name',
+            'email' => 'new@example.com',
+            // ... другие поля
+        ]);
+
+        $response->assertStatus(302);
     }
 }

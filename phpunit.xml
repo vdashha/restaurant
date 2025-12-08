@@ -17,6 +17,7 @@
             <file>app/Http/Controllers/CartController.php</file>
             <file>app/Http/Controllers/CategoryController.php</file>
             <file>app/Http/Controllers/ClientController.php</file>
+            <file>app/Http/Controllers/OrderController.php</file>
         </include>
     </source>
     <php>

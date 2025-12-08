@@ -24,7 +24,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read Category|null $parent
  * @property \Illuminate\Database\Eloquent\Collection<int, Category> $subCategories
  * @property-read int|null $sub_categories_count
- * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
+ * @method static \Database\Factories\RestaurantFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()

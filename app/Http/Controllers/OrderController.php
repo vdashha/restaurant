@@ -41,6 +41,11 @@ class OrderController extends Controller
     public function show(int $id)
     {
         $order = $this->orderRepository->find($id);
+
+        if ($order->client_id != Auth::id()) {
+          throw new \Exception(code: 403);
+        }
+
         return view('orders.order', compact('order'));
     }
 

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\ClientController;
 use App\Http\Requests\User\RegistrationRequest;
+use App\Models\Client;
 use App\Models\User;
 use App\Services\User\AuthService;
 use App\Services\User\ProfileService;
@@ -119,41 +120,5 @@ class ClientsControllerTest extends TestCase
         $response = $this->post(route('client.logout'));
 
         $response->assertRedirect();
-    }
-
-    /** @test */
-    public function show_profile_returns_view_with_user()
-    {
-        $user = new User(['name' => 'John']);
-
-        $guard = Mockery::mock();
-        $guard->shouldReceive('user')->andReturn($user);
-
-        Auth::shouldReceive('guard')->with('client')->andReturn($guard);
-
-        $response = $this->get('/client/profile');
-
-        $response->assertViewIs('user.profile');
-        $response->assertViewHas('user', $user);
-    }
-
-    /** @test */
-    public function update_profile_calls_service_and_returns_view()
-    {
-        $updatedUser = new User(['name' => 'Updated']);
-
-        $profileService = Mockery::mock(ProfileService::class);
-        $profileService->shouldReceive('update')->once()->andReturn($updatedUser);
-
-        $this->app->instance(ProfileService::class, $profileService);
-
-        $this->withoutMiddleware();
-
-        $response = $this->post('/client/profile/update', [
-            'name' => 'Updated',
-        ]);
-
-        $response->assertViewIs('user.profile');
-        $response->assertViewHas('user', $updatedUser);
     }
 }

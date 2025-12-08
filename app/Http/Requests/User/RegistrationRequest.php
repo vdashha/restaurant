@@ -26,7 +26,6 @@ class RegistrationRequest extends FormRequest
             'surname' => 'required|string',
             'email' => 'required|email|unique:clients,email',
             'password' => 'required|string|confirmed',
-
         ];
     }
 
